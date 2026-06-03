@@ -21,7 +21,7 @@
         nav .nav-links a.btn-propietario { background-color: rgba(255, 255, 255, 0.2); border-color: #ffffff; }
         nav .nav-links a.btn-propietario:hover { background-color: #ffffff; color: #1a1a1a; }
 
-        /* Hero Header (Modificado: Se eliminó la imagen fija de fondo) */
+        /* Hero Header */
         .hero-seccion { 
             position: relative; 
             min-height: 75vh; 
@@ -32,7 +32,7 @@
             padding: 120px 20px 40px 20px; 
             text-align: center; 
             overflow: hidden; 
-            background-color: #1a1a1a; /* Fondo oscuro base mientras carga el video */
+            background-color: #1a1a1a; 
         }
         
         /* 🎥 ESTILOS DEL VIDEO DE FONDO */
@@ -47,7 +47,7 @@
             z-index: 1; 
         }
 
-        /* 🖤 CAPA OSCURA INTERMEDIA (Filtro anti-encandilamiento) */
+        /* 🖤 CAPA OSCURA INTERMEDIA */
         .hero-seccion::before {
             content: '';
             position: absolute;
@@ -175,11 +175,8 @@
         .calendario-grilla { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; text-align: center; }
         .calendario-dias-semana { font-size: 0.75rem; font-weight: 700; color: #a0a0a0; text-transform: uppercase; margin-bottom: 10px; }
         
-        /* Modificación para albergar el número de día arriba y el precio abajo */
         .cal-dia { padding: 8px 0; font-size: 0.95rem; font-weight: 700; border-radius: 6px; color: #1a1a1a; transition: all 0.2s; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 52px; gap: 2px; }
         .cal-dia .num-dia { font-size: 0.95rem; }
-        
-        /* Estilo premium del micro precio de cada casillero */
         .cal-dia .monto-dia { font-size: 0.65rem; font-weight: 600; opacity: 0.85; letter-spacing: 0.3px; }
         
         .cal-dia.disponible { background-color: #f7f9f8; color: #007a78; border: 1px solid rgba(0, 122, 120, 0.15); }
@@ -192,7 +189,6 @@
         .cal-dia.ocupado .monto-dia { display: none; }
         .cal-dia.vacio { background: transparent; }
 
-        /* ESTILOS DE RANGO SELECCIONADO */
         .cal-dia.seleccionado { background-color: #1a1a1a !important; color: #ffffff !important; border-color: #1a1a1a !important; }
         .cal-dia.seleccionado .monto-dia { color: #ffffff !important; opacity: 1; }
         .cal-dia.en-rango { background-color: rgba(0, 122, 120, 0.1) !important; color: #007a78 !important; border-radius: 0 !important; border-color: rgba(0, 122, 120, 0.05) !important; }
@@ -209,6 +205,55 @@
 
         #sin-resultados { display: none; text-align: center; padding: 60px; font-size: 1.2rem; color: #777777; grid-column: 1 / -1; }
         footer { background-color: #1a1a1a; color: #ffffff; text-align: center; padding: 50px 20px; margin-top: 100px; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; opacity: 0.8; }
+
+        /* ==========================================================================
+           📱 DISPOSITIVOS MÓVILES (MEDIA QUERY RESPONSIVE)
+           ========================================================================== */
+        @media (max-width: 768px) {
+            /* Navegación para celu */
+            nav { padding: 20px; flex-direction: column; gap: 15px; background: rgba(0,0,0,0.7); position: relative; }
+            nav h1 { font-size: 1.5rem; letter-spacing: 2px; }
+            nav .nav-links { gap: 10px; width: 100%; justify-content: center; }
+            nav .nav-links a { font-size: 0.8rem; padding: 6px 12px; }
+
+            /* Hero Ajustes */
+            .hero-seccion { min-height: auto; padding: 60px 15px; }
+            .hero-contenido h2 { font-size: 1.8rem; }
+            .hero-contenido p { font-size: 1rem; }
+
+            /* Buscador Adaptable */
+            .buscador-caja { border-radius: 16px; padding: 20px; width: 100%; max-width: 100%; }
+            .buscador-formulario { grid-template-columns: 1fr; gap: 15px; }
+            .input-grupo { padding: 0; border-right: none; border-bottom: 1px solid #eeeeee; padding-bottom: 10px; }
+            .select-wrapper::after { right: 10px; }
+            .boton-buscar { width: 100%; border-radius: 30px; height: 45px; margin-top: 10px; }
+            .boton-buscar span { display: none !important; } /* Oculta la lupa armada con CSS viejo */
+            .boton-buscar::after { content: 'BUSCAR AHORA'; font-weight: 700; letter-spacing: 1px; font-size: 0.9rem; }
+
+            /* Catálogo y Grillas */
+            .contenedor-fluido { padding: 40px 15px; }
+            .grilla-alojamientos { grid-template-columns: 1fr; gap: 30px; }
+            .titulo-seccion { font-size: 1.5rem; text-align: center; }
+
+            /* Sección Propietarios */
+            .seccion-propietarios { padding: 50px 20px; border-radius: 8px; margin-top: 40px; }
+            .seccion-propietarios h3 { font-size: 1.6rem; }
+            .seccion-propietarios p { font-size: 1rem; margin-bottom: 30px; }
+            .btn-contacto-propietario { width: 100%; padding: 15px 20px; font-size: 0.9rem; }
+
+            /* Modal Premium para Celulares */
+            #modal-propiedad > div:last-child { margin: 10px !important; width: calc(100% - 20px) !important; }
+            #modal-propiedad div[style*="height: 450px"] { height: 250px !important; }
+            #modal-titulo { font-size: 1.4rem !important; }
+            #modal-propiedad div[style*="padding: 40px 30px"] { padding: 20px 15px !important; }
+            .calendario-contenedor { padding: 10px; }
+            .cal-dia { min-height: 42px; font-size: 0.8rem; }
+            .cal-dia .monto-dia { font-size: 0.55rem; }
+            
+            /* Botón fijado o estirado abajo del modal */
+            div[style*="background-color: #fafafa"] { flex-direction: column; text-align: center; padding: 15px !important; }
+            #modal-btn-reservar { width: 100%; text-align: center; padding: 12px 20px; }
+        }
     </style>
 </head>
 <body>
@@ -224,7 +269,6 @@
     <header class="hero-seccion">
         <video autoplay muted loop playsinline webkit-playsinline preload="auto" class="video-background">
             <source src="Video de fondo Hostly\video-hostly.mp4" type="video/mp4">
-           
             Tu navegador no soporta la reproducción de videos o el formato del archivo local está dañado.
         </video>
 
