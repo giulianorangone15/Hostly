@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hostly | Gestión Premium de Alquileres Temporarios</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ESTILO PREMIUM INTEGRADO */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { width: 100%; max-width: 100%; overflow-x: hidden; position: relative; scroll-behavior: smooth; }
+        body { font-family: 'Urbanist', sans-serif; background-color: #ffffff; color: #1a1a1a; line-height: 1.6; }
+        
+        /* Navegación */
+        nav { position: absolute; top: 0; left: 0; width: 100%; z-index: 10; padding: 25px 50px; display: flex; justify-content: space-between; align-items: center; background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0)); }
+        nav h1 { font-size: 1.8rem; letter-spacing: 4px; color: #ffffff; text-transform: uppercase; font-weight: 700; }
+        nav .nav-links { display: flex; gap: 20px; }
+        nav .nav-links a { color: #ffffff; text-decoration: none; font-weight: 600; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px; border: 1px solid transparent; padding: 8px 16px; border-radius: 30px; transition: all 0.3s; }
+        nav .nav-links a.btn-propietario { background-color: rgba(255, 255, 255, 0.2); border-color: #ffffff; }
+        nav .nav-links a.btn-propietario:hover { background-color: #ffffff; color: #1a1a1a; }
+
+        /* Hero Header (Modificado: Se eliminó la imagen fija de fondo) */
+        .hero-seccion { 
+            position: relative; 
+            min-height: 75vh; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            padding: 120px 20px 40px 20px; 
+            text-align: center; 
+            overflow: hidden; 
+            background-color: #1a1a1a; /* Fondo oscuro base mientras carga el video */
+        }
+        
+        /* 🎥 ESTILOS DEL VIDEO DE FONDO */
+        .video-background {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            transform: translate(-50%, -50%);
+            z-index: 1; 
+        }
+
+        /* 🖤 CAPA OSCURA INTERMEDIA (Filtro anti-encandilamiento) */
+        .hero-seccion::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4); 
+            z-index: 2; 
+        }
+
+        /* Contenido flota sobre el video y el filtro */
+        .hero-contenido { 
+            color: #ffffff; 
+            margin-bottom: 40px; 
+            position: relative;
+            z-index: 3; 
+        }
+        .hero-contenido h2 { font-size: clamp(2.2rem, 6vw, 4rem); margin: 0 0 15px 0; font-weight: 300; letter-spacing: 2px; text-transform: uppercase; }
+        .hero-contenido h2 strong { font-weight: 700; color: #ffffff; }
+        .hero-contenido p { font-size: clamp(1.1rem, 2vw, 1.4rem); margin: 0; opacity: 0.9; font-weight: 400; }
+
+        /* Buscador Ultra-Minimalista */
+        .buscador-caja { 
+            background-color: #ffffff; 
+            padding: 15px 35px; 
+            border-radius: 50px; 
+            box-shadow: 0 15px 40px rgba(0,0,0,0.06); 
+            width: 100%; 
+            max-width: 700px; 
+            position: relative;
+            z-index: 3; 
+        }
+        .buscador-formulario { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) 60px; gap: 10px; align-items: center; }
+        
+        .input-grupo { display: flex; flex-direction: column; text-align: left; padding: 0 15px; border-right: 1px solid #eeeeee; position: relative; }
+        .input-grupo:last-of-type { border-right: none; }
+        .input-grupo label { font-size: 0.7rem; font-weight: 700; color: #a0a0a0; margin-bottom: 2px; text-transform: uppercase; letter-spacing: 1px; }
+        
+        .input-grupo select {
+            width: 100%;
+            padding: 6px 20px 6px 0;
+            border: none;
+            font-family: 'Urbanist', sans-serif;
+            font-size: 1rem;
+            color: #1a1a1a;
+            font-weight: 600;
+            outline: none;
+            background: transparent;
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        /* DESPLEGABLE PREMIUM */
+        .input-grupo select option { 
+            background-color: #ffffff; 
+            color: #1a1a1a; 
+            font-family: 'Urbanist', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 12px;
+        }
+
+        .input-grupo select:focus {
+            outline: none;
+            border: none;
+        }
+
+        .select-wrapper { position: relative; width: 100%; }
+        .select-wrapper::after {
+            content: '';
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 5px solid #1a1a1a;
+            pointer-events: none;
+        }
+
+        .boton-buscar { background-color: #1a1a1a; color: #ffffff; border: none; height: 50px; width: 50px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s; justify-self: center; position: relative; }
+        .boton-buscar:hover { background-color: #007a78; transform: scale(1.05); }
+
+        /* Contenedor de Catálogo */
+        .contenedor-fluido { max-width: 1300px; margin: 0 auto; padding: 80px 20px; width: 100%; }
+        
+        /* Contenedor del Título y el Botón de Limpiar */
+        .catalogo-header-caja { display: flex; justify-content: center; align-items: center; gap: 20px; margin-bottom: 40px; position: relative; flex-wrap: wrap; }
+        .titulo-seccion { font-size: 2rem; font-weight: 300; text-transform: uppercase; letter-spacing: 2px; margin: 0; }
+        .titulo-seccion strong { font-weight: 700; }
+        
+        /* Botón Limpiar Filtros Estilo Premium */
+        .btn-limpiar-filtros { background-color: #f5f5f5; color: #777777; border: 1px solid #eeeeee; padding: 8px 18px; border-radius: 20px; font-family: 'Urbanist', sans-serif; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 6px; }
+        .btn-limpiar-filtros:hover { background-color: #1a1a1a; color: #ffffff; border-color: #1a1a1a; transform: translateY(-2px); }
+        
+        /* Grilla de Tarjetas */
+        .grilla-alojamientos { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 40px; width: 100%; }
+        .tarjeta-alojamiento { background-color: transparent; overflow: hidden; transition: transform 0.4s ease; display: flex; flex-direction: column; cursor: pointer; color: inherit; text-decoration: none; }
+        .tarjeta-alojamiento:hover { transform: translateY(-8px); }
+        
+        .foto-contenedor { position: relative; width: 100%; height: 260px; border-radius: 8px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        .foto-contenedor img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+        .tarjeta-alojamiento:hover .foto-contenedor img { transform: scale(1.05); }
+        
+        .tarjeta-info { padding: 20px 5px 10px 5px; display: flex; flex-direction: column; flex-grow: 1; }
+        .tarjeta-info h4 { margin: 0 0 6px 0; font-size: 1.3rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+        .ubicacion { margin: 0 0 15px 0; font-size: 0.9rem; color: #777777; font-weight: 400; }
+        .servicios { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 15px; font-size: 0.85rem; color: #555555; }
+        
+        .tarjeta-precio-boton { display: flex; justify-content: space-between; align-items: flex-end; border-top: 1px solid #eeeeee; padding-top: 15px; margin-top: auto; }
+        .precio-caja { display: flex; flex-direction: column; }
+        .precio-leyenda { font-size: 0.75rem; color: #888888; text-transform: uppercase; }
+        .precio-monto { font-size: 1.3rem; font-weight: 700; color: #1a1a1a; }
+        .enlace-ver-mas { font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #1a1a1a; border-bottom: 2px solid #1a1a1a; padding-bottom: 2px; }
+
+        /* CALENDARIO PREMIUM ACTUALIZADO CON PRECIOS INTERNOS */
+        .calendario-contenedor { margin-top: 20px; background: #ffffff; border: 1px solid #1a1a1a; border-radius: 12px; padding: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
+        .calendario-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; font-weight: 700; text-transform: uppercase; font-size: 0.95rem; letter-spacing: 1.5px; color: #1a1a1a; border-bottom: 1px solid #eeeeee; padding-bottom: 12px; }
+        .calendario-mes-btn { background: none; border: none; font-size: 1.1rem; cursor: pointer; color: #1a1a1a; padding: 5px 15px; border-radius: 50%; transition: background 0.3s; }
+        .calendario-mes-btn:hover { background-color: #f5f5f5; }
+        .calendario-grilla { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; text-align: center; }
+        .calendario-dias-semana { font-size: 0.75rem; font-weight: 700; color: #a0a0a0; text-transform: uppercase; margin-bottom: 10px; }
+        
+        /* Modificación para albergar el número de día arriba y el precio abajo */
+        .cal-dia { padding: 8px 0; font-size: 0.95rem; font-weight: 700; border-radius: 6px; color: #1a1a1a; transition: all 0.2s; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 52px; gap: 2px; }
+        .cal-dia .num-dia { font-size: 0.95rem; }
+        
+        /* Estilo premium del micro precio de cada casillero */
+        .cal-dia .monto-dia { font-size: 0.65rem; font-weight: 600; opacity: 0.85; letter-spacing: 0.3px; }
+        
+        .cal-dia.disponible { background-color: #f7f9f8; color: #007a78; border: 1px solid rgba(0, 122, 120, 0.15); }
+        .cal-dia.disponible .monto-dia { color: #007a78; }
+        .cal-dia.disponible:hover { background-color: #007a78; color: #ffffff !important; cursor: pointer; }
+        .cal-dia.disponible:hover .monto-dia { color: #ffffff !important; opacity: 1; }
+        
+        .cal-dia.ocupado { background-color: #fafafa; color: #d0d0d0; opacity: 0.5; cursor: not-allowed; border: 1px solid #eeeeee; }
+        .cal-dia.ocupado .num-dia { text-decoration: line-through; }
+        .cal-dia.ocupado .monto-dia { display: none; }
+        .cal-dia.vacio { background: transparent; }
+
+        /* ESTILOS DE RANGO SELECCIONADO */
+        .cal-dia.seleccionado { background-color: #1a1a1a !important; color: #ffffff !important; border-color: #1a1a1a !important; }
+        .cal-dia.seleccionado .monto-dia { color: #ffffff !important; opacity: 1; }
+        .cal-dia.en-rango { background-color: rgba(0, 122, 120, 0.1) !important; color: #007a78 !important; border-radius: 0 !important; border-color: rgba(0, 122, 120, 0.05) !important; }
+        .cal-dia.en-rango .monto-dia { color: #007a78 !important; }
+
+        /* Sección Captación Propietarios */
+        .seccion-propietarios { background-image: linear-gradient(rgba(26, 26, 26, 0.95), rgba(26, 26, 26, 0.95)), url('https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=1200&q=80'); background-size: cover; background-position: center; color: #ffffff; padding: 100px 40px; text-align: center; border-radius: 16px; margin-top: 80px; }
+        .propietarios-contenido { max-width: 800px; margin: 0 auto; }
+        .seccion-propietarios h3 { font-size: 2.3rem; font-weight: 300; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; }
+        .seccion-propietarios h3 strong { font-weight: 700; color: #007a78; }
+        .seccion-propietarios p { font-size: 1.15rem; opacity: 0.85; margin-bottom: 40px; font-weight: 300; }
+        .btn-contacto-propietario { background-color: #ffffff; color: #1a1a1a; text-decoration: none; padding: 18px 40px; font-size: 1rem; font-weight: 700; border-radius: 40px; text-transform: uppercase; display: inline-block; transition: all 0.3s; border: none; cursor: pointer; font-family: 'Urbanist', sans-serif; }
+        .btn-contacto-propietario:hover { background-color: #007a78; color: #ffffff; }
+
+        #sin-resultados { display: none; text-align: center; padding: 60px; font-size: 1.2rem; color: #777777; grid-column: 1 / -1; }
+        footer { background-color: #1a1a1a; color: #ffffff; text-align: center; padding: 50px 20px; margin-top: 100px; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <h1>Hostly</h1>
+        <div class="nav-links">
+            <a href="#catalogo">Propiedades</a>
+            <a href="#propietarios" class="btn-propietario">Para Propietarios</a>
+        </div>
+    </nav>
+
+    <header class="hero-seccion">
+        <video autoplay muted loop playsinline webkit-playsinline preload="auto" class="video-background">
+            <source src="Video de fondo Hostly\video-hostly.mp4" type="video/mp4">
+           
+            Tu navegador no soporta la reproducción de videos o el formato del archivo local está dañado.
+        </video>
+
+        <div class="hero-contenido">
+            <h2>Experiencias <strong>Exclusivas</strong></h2>
+            <p>Alojamientos premium en Villa Carlos Paz gestionados con excelencia</p>
+        </div>
+
+        <div class="buscador-caja">
+            <div class="buscador-formulario">
+                <div class="input-grupo">
+                    <label>Tipo de Alojamiento</label>
+                    <div class="select-wrapper">
+                        <select id="filtro-tipo">
+                            <option value="todos">Todos los tipos</option>
+                            <option value="habitacion">Habitaciones</option>
+                            <option value="departamento">Departamentos</option>
+                            <option value="casa">Casas</option>
+                            <option value="cabaña">Cabañas</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="input-grupo">
+                    <label>Huéspedes</label>
+                    <div class="select-wrapper">
+                        <select id="pasajeros-cantidad">
+                            <option value="todos">Cualquier capacidad</option>
+                            <option value="1">1 Persona</option>
+                            <option value="2" selected>2 Personas</option>
+                            <option value="3">3 Personas</option>
+                            <option value="4">4 Personas</option>
+                            <option value="5">5 Personas</option>
+                            <option value="6">6 Personas</option>
+                            <option value="10">Más Personas</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="button" class="boton-buscar" onclick="filtrarAlojamientos()">
+                    <span style="display: inline-block; width: 14px; height: 14px; border: 2px solid #ffffff; border-radius: 50%; position: absolute; top: 16px; left: 16px;"></span>
+                    <span style="display: inline-block; width: 2px; height: 8px; background-color: #ffffff; position: absolute; top: 26px; left: 26px; transform: rotate(-45deg);"></span>
+                </button>
+            </div>
+        </div>
+    </header> 
+
+    <main class="contenedor-fluido" id="seccion-contenido">
+        <section id="catalogo" class="seccion-catalogo">
+            <div class="catalogo-header-caja">
+                <h3 class="titulo-seccion">Colección <strong>De Propiedades</strong></h3>
+                <button type="button" class="btn-limpiar-filtros" onclick="limpiarFiltros()">
+                    <span style="font-size: 1.1rem; line-height: 1;">↺</span> Limpiar Filtros
+                </button>
+            </div>
+            <div class="grilla-alojamientos" id="lista-propiedades">
+                <div id="sin-resultados">No hay alojamientos disponibles para los filtros seleccionados.</div>
+            </div>
+        </section>
+
+        <section id="propietarios" class="seccion-propietarios">
+            <div class="propietarios-contenido">
+                <h3>¿Tenés una propiedad? <strong>Compramos tu estrés, te devolvemos tu tiempo.</strong></h3>
+                <p>Nos encargamos del 100% de la gestión operativa de tu alquiler temporario: marketing digital, optimización de tarifas, auditoría estricta de limpieza hotelera, check-in/out y cobros. Recibí tu rentabilidad de forma inmediata sin moverte de tu casa.</p>
+                <button type="button" class="btn-contacto-propietario" onclick="solicitarServicioPropietario()">Quiero Más Información</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Hostly Management Premium © 2026 — Villa Carlos Paz, Córdoba</p>
+    </footer>
+
+    <div id="modal-propiedad" style="display: none !important; position: fixed !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; z-index: 99999 !important; overflow-y: auto !important;">
+        <div onclick="cerrarModal()" style="position: fixed !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; background-color: #000000 !important; opacity: 0.85 !important; z-index: 100000 !important;"></div>
+        <div style="position: relative !important; background-color: #ffffff !important; background: #ffffff !important; opacity: 1 !important; max-width: 800px; margin: 40px auto !important; border-radius: 12px; overflow: hidden; box-shadow: 0 25px 60px rgba(0,0,0,0.6); display: flex; flex-direction: column; z-index: 100001 !important;">
+            <span onclick="cerrarModal()" style="position: absolute; top: 20px; right: 25px; font-size: 2.5rem; color: #ffffff !important; cursor: pointer; z-index: 1010; text-shadow: 0 2px 8px rgba(0,0,0,0.8); font-weight: 300;">×</span>
+            <div style="width: 100%; height: 450px; position: relative; overflow: hidden; background-color: #1a1a1a;">
+                <div id="modal-slider-imagenes" style="width: 100%; height: 100%; background-size: cover; background-position: center; transition: background-image 0.4s ease;"></div>
+                <button onclick="cambiarFoto(-1)" style="position: absolute; top: 50%; left: 20px; transform: translateY(-50%); background: rgba(0,0,0,0.6); color: #ffffff; border: none; width: 45px; height: 45px; border-radius: 50%; font-size: 1.5rem; cursor: pointer; z-index: 1005; transition: background 0.3s; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.background='rgba(0,0,0,0.9)'" onmouseout="this.style.background='rgba(0,0,0,0.6)'">❮</button>
+                <button onclick="cambiarFoto(1)" style="position: absolute; top: 50%; right: 20px; transform: translateY(-50%); background: rgba(0,0,0,0.6); color: #ffffff; border: none; width: 45px; height: 45px; border-radius: 50%; font-size: 1.5rem; cursor: pointer; z-index: 1005; transition: background 0.3s; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.background='rgba(0,0,0,0.9)'" onmouseout="this.style.background='rgba(0,0,0,0.6)'">❯</button>
+                <div style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 40px 30px 30px 30px; background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0)) !important; color: #ffffff !important; z-index: 1004; pointer-events: none;">
+                    <h2 id="modal-titulo" style="font-size: 2.2rem; font-weight: 700; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px; text-shadow: 0 2px 4px rgba(0,0,0,0.4); color: #ffffff !important;"></h2>
+                    <p id="modal-ubicacion" style="font-size: 1rem; opacity: 0.95; font-weight: 300; text-shadow: 0 1px 3px rgba(0,0,0,0.4); color: #ffffff !important;"></p>
+                </div>
+            </div>
+            <div style="padding: 40px 30px; background-color: #ffffff !important; background: #ffffff !important; display: grid; grid-template-columns: 1fr; gap: 30px;">
+                <div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 25px; background-color: #fafafa; padding: 15px 20px; border-radius: 8px; border: 1px solid #eeeeee;">
+                        <span style="font-size: 0.95rem; font-weight: 600; color: #1a1a1a;">📍 Ubicación Disponible</span>
+                        <a id="modal-link-maps" href="#" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; color: #007a78; text-decoration: none; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; border-bottom: 2px solid #007a78;">Abrir en Google Maps</a>
+                    </div>
+                    <h4 style="text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; color: #888888; margin-bottom: 15px; border-bottom: 1px solid #eeeeee; padding-bottom: 5px;">Sobre esta propiedad</h4>
+                    <p id="modal-descripcion" style="font-size: 1.05rem; color: #1a1a1a !important; line-height: 1.8; font-weight: 400; margin-bottom: 25px;"></p>
+                    
+                    <h4 style="text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; color: #888888; margin-bottom: 15px; border-bottom: 1px solid #eeeeee; padding-bottom: 5px;">Servicios Incluidos</h4>
+                    <div id="modal-servicios" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 30px;"></div>
+                    
+                    <h4 style="text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; color: #888888; margin-bottom: 15px; border-bottom: 1px solid #eeeeee; padding-bottom: 5px;">Disponibilidad de Ocupación</h4>
+                    <div class="calendario-contenedor">
+                        <div class="calendario-header">
+                            <button type="button" class="calendario-mes-btn" onclick="cambiarMesCalendario(-1)">❮</button>
+                            <span id="calendario-mes-año"></span>
+                            <button type="button" class="calendario-mes-btn" onclick="cambiarMesCalendario(1)">❯</button>
+                        </div>
+                        <div class="calendario-grilla calendario-dias-semana">
+                            <div>Do</div><div>Lu</div><div>Ma</div><div>Mi</div><div>Ju</div><div>Vi</div><div>Sá</div>
+                        </div>
+                        <div class="calendario-grilla" id="calendario-dias-caja"></div>
+                    </div>
+                </div>
+                <div style="background-color: #fafafa !important; padding: 25px; border-radius: 12px; border: 1px solid #eeeeee; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+                    <div>
+                        <span id="modal-precio-leyenda" style="font-size: 0.75rem; color: #888888; text-transform: uppercase; letter-spacing: 1px;">Precio Base</span>
+                        <div id="modal-precio-monto" style="font-size: 1.8rem; font-weight: 700; color: #1a1a1a !important; margin-top: 2px;"></div>
+                    </div>
+                    <button id="modal-btn-reservar" style="background-color: #1a1a1a; color: #ffffff; border: none; padding: 15px 35px; font-size: 1rem; font-weight: 700; border-radius: 30px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; font-family: 'Urbanist', sans-serif; transition: all 0.3s;" onmouseover="this.style.backgroundColor='#007a78'; this.style.transform='scale(1.03)'" onmouseout="this.style.backgroundColor='#1a1a1a'; this.style.transform='scale(1)'">Consultar Por WhatsApp</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="datos.js"></script>
+</body>
+</html>
