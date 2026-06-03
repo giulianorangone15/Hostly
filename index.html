@@ -219,7 +219,12 @@
             nav .nav-links { gap: 10px; width: 100%; justify-content: center; }
             nav .nav-links a { font-size: 0.8rem; padding: 6px 12px; }
 
-            /* Hero y Foto Estática (El video se remueve vía JS para que no intente cargar) */
+            /* Ocultamos por completo el elemento de video en el celular */
+            .video-background {
+                display: none !important;
+            }
+
+            /* Hero y Foto Estática */
             .hero-seccion { 
                 min-height: auto; 
                 padding: 140px 15px 40px 15px;
@@ -275,7 +280,7 @@
 
     <header class="hero-seccion">
         <video autoplay muted loop playsinline webkit-playsinline preload="auto" poster="fondo-portada-wsp.png" class="video-background">
-            <source src="Video de fondo Hostly/video-hostly.mp4" type="video/mp4" media="(min-width: 769px)">
+            <source src="Video de fondo Hostly/video-hostly.mp4" type="video/mp4">
             Tu navegador no soporta la reproducción de videos o el formato del archivo local está dañado.
         </video>
 
