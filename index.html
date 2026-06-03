@@ -41,7 +41,7 @@
             background-color: #1a1a1a; 
         }
         
-        /* 🎥 ESTILOS DEL VIDEO DE FONDO */
+        /* 🎥 ESTILOS DEL VIDEO Y LA IMAGEN MOBILE */
         .video-background {
             position: absolute;
             top: 50%;
@@ -51,6 +51,17 @@
             object-fit: cover; 
             transform: translate(-50%, -50%);
             z-index: 1; 
+        }
+
+        .imagen-fondo-mobile {
+            display: none;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
         }
 
         /* 🖤 CAPA OSCURA INTERMEDIA */
@@ -246,6 +257,10 @@
             .cal-dia { min-height: 42px; font-size: 0.8rem; }
             .cal-dia .monto-dia { font-size: 0.55rem; }
             
+            /* Ajustes Mobile para Video/Imagen */
+            .video-background { display: none !important; }
+            .imagen-fondo-mobile { display: block !important; }
+            
             /* Ajuste específico para que el bloque de reserva interna del modal se vea bien en celular sin afectar la PC */
             #modal-propiedad div[style*="background-color: #fafafa"] { flex-direction: column !important; text-align: center !important; padding: 15px !important; }
             #modal-btn-reservar { width: 100%; text-align: center; padding: 12px 20px; }
@@ -267,6 +282,9 @@
             <source src="Video de fondo Hostly/video-hostly.mp4" type="video/mp4">
             Tu navegador no soporta la reproducción de videos o el formato del archivo local está dañado.
         </video>
+
+        <!-- ESTA ES LA IMAGEN QUE SE MOSTRARÁ EN MÓVIL -->
+        <img src="portada-video.jpg" class="imagen-fondo-mobile" alt="Portada Hostly">
 
         <div class="hero-contenido">
             <h2>Experiencias <strong>Exclusivas</strong></h2>
@@ -308,83 +326,4 @@
                 </button>
             </div>
         </div>
-    </header> 
-
-    <main class="contenedor-fluido" id="seccion-contenido">
-        <section id="catalogo" class="seccion-catalogo">
-            <div class="catalogo-header-caja">
-                <h3 class="titulo-seccion">Colección <strong>De Propiedades</strong></h3>
-                <button type="button" class="btn-limpiar-filtros" onclick="limpiarFiltros()">
-                    <span style="font-size: 1.1rem; line-height: 1;">↺</span> Limpiar Filtros
-                </button>
-            </div>
-            <div class="grilla-alojamientos" id="lista-propiedades">
-                <div id="sin-resultados">No hay alojamientos disponibles para los filtros seleccionados.</div>
-            </div>
-        </section>
-
-        <section id="propietarios" class="seccion-propietarios">
-            <div class="propietarios-contenido">
-                <h3>¿Tenés una propiedad? <strong>Compramos tu estrés, te devolvemos tu tiempo.</strong></h3>
-                <p>Nos encargamos del 100% de la gestión operativa de tu alquiler temporario: marketing digital, optimización de tarifas, auditoría estricta de limpieza hotelera, check-in/out y cobros. Recibí tu rentabilidad de forma inmediata sin moverte de tu casa.</p>
-                <button type="button" class="btn-contacto-propietario" onclick="solicitarServicioPropietario()">Quiero Más Información</button>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <p>Hostly Management Premium © 2026 — Villa Carlos Paz, Córdoba</p>
-    </footer>
-
-    <div id="modal-propiedad" style="display: none !important; position: fixed !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; z-index: 99999 !important; overflow-y: auto !important;">
-        <div onclick="cerrarModal()" style="position: fixed !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; background-color: #000000 !important; opacity: 0.85 !important; z-index: 100000 !important;"></div>
-        <div style="position: relative !important; background-color: #ffffff !important; background: #ffffff !important; opacity: 1 !important; max-width: 800px; margin: 40px auto !important; border-radius: 12px; overflow: hidden; box-shadow: 0 25px 60px rgba(0,0,0,0.6); display: flex; flex-direction: column; z-index: 100001 !important;">
-            <span onclick="cerrarModal()" style="position: absolute; top: 20px; right: 25px; font-size: 2.5rem; color: #ffffff !important; cursor: pointer; z-index: 1010; text-shadow: 0 2px 8px rgba(0,0,0,0.8); font-weight: 300;">×</span>
-            <div style="width: 100%; height: 450px; position: relative; overflow: hidden; background-color: #1a1a1a;">
-                <div id="modal-slider-imagenes" style="width: 100%; height: 100%; background-size: cover; background-position: center; transition: background-image 0.4s ease;"></div>
-                <button onclick="cambiarFoto(-1)" style="position: absolute; top: 50%; left: 20px; transform: translateY(-50%); background: rgba(0,0,0,0.6); color: #ffffff; border: none; width: 45px; height: 45px; border-radius: 50%; font-size: 1.5rem; cursor: pointer; z-index: 1005; transition: background 0.3s; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.background='rgba(0,0,0,0.9)'" onmouseout="this.style.background='rgba(0,0,0,0.6)'">❮</button>
-                <button onclick="cambiarFoto(1)" style="position: absolute; top: 50%; right: 20px; transform: translateY(-50%); background: rgba(0,0,0,0.6); color: #ffffff; border: none; width: 45px; height: 45px; border-radius: 50%; font-size: 1.5rem; cursor: pointer; z-index: 1005; transition: background 0.3s; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.background='rgba(0,0,0,0.9)'" onmouseout="this.style.background='rgba(0,0,0,0.6)'">❯</button>
-                <div style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 40px 30px 30px 30px; background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0)) !important; color: #ffffff !important; z-index: 1004; pointer-events: none;">
-                    <h2 id="modal-titulo" style="font-size: 2.2rem; font-weight: 700; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px; text-shadow: 0 2px 4px rgba(0,0,0,0.4); color: #ffffff !important;"></h2>
-                    <p id="modal-ubicacion" style="font-size: 1rem; opacity: 0.95; font-weight: 300; text-shadow: 0 1px 3px rgba(0,0,0,0.4); color: #ffffff !important;"></p>
-                </div>
-            </div>
-            <div style="padding: 40px 30px; background-color: #ffffff !important; background: #ffffff !important; display: grid; grid-template-columns: 1fr; gap: 30px;">
-                <div>
-                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 25px; background-color: #fafafa; padding: 15px 20px; border-radius: 8px; border: 1px solid #eeeeee;">
-                        <span style="font-size: 0.95rem; font-weight: 600; color: #1a1a1a;">📍 Ubicación Disponible</span>
-                        <a id="modal-link-maps" href="#" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; color: #007a78; text-decoration: none; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; border-bottom: 2px solid #007a78;">Abrir en Google Maps</a>
-                    </div>
-                    <h4 style="text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; color: #888888; margin-bottom: 15px; border-bottom: 1px solid #eeeeee; padding-bottom: 5px;">Sobre esta propiedad</h4>
-                    <p id="modal-descripcion" style="font-size: 1.05rem; color: #1a1a1a !important; line-height: 1.8; font-weight: 400; margin-bottom: 25px;"></p>
-                    
-                    <h4 style="text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; color: #888888; margin-bottom: 15px; border-bottom: 1px solid #eeeeee; padding-bottom: 5px;">Servicios Incluidos</h4>
-                    <div id="modal-servicios" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 30px;"></div>
-                    
-                    <h4 style="text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; color: #888888; margin-bottom: 15px; border-bottom: 1px solid #eeeeee; padding-bottom: 5px;">Disponibilidad de Ocupación</h4>
-                    <div class="calendario-contenedor">
-                        <div class="calendario-header">
-                            <button type="button" class="calendario-mes-btn" onclick="cambiarMesCalendario(-1)">❮</button>
-                            <span id="calendario-mes-año"></span>
-                            <button type="button" class="calendario-mes-btn" onclick="cambiarMesCalendario(1)">❯</button>
-                        </div>
-                        <div class="calendario-grilla calendario-dias-semana">
-                            <div>Do</div><div>Lu</div><div>Ma</div><div>Mi</div><div>Ju</div><div>Vi</div><div>Sá</div>
-                        </div>
-                        <div class="calendario-grilla" id="calendario-dias-caja"></div>
-                    </div>
-                </div>
-                <div style="background-color: #fafafa !important; padding: 25px; border-radius: 12px; border: 1px solid #eeeeee; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
-                    <div>
-                        <span id="modal-precio-leyenda" style="font-size: 0.75rem; color: #888888; text-transform: uppercase; letter-spacing: 1px;">Precio Base</span>
-                        <div id="modal-precio-monto" style="font-size: 1.8rem; font-weight: 700; color: #1a1a1a !important; margin-top: 2px;"></div>
-                    </div>
-                    <button id="modal-btn-reservar" style="background-color: #1a1a1a; color: #ffffff; border: none; padding: 15px 35px; font-size: 1rem; font-weight: 700; border-radius: 30px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; font-family: 'Urbanist', sans-serif; transition: all 0.3s;" onmouseover="this.style.backgroundColor='#007a78'; this.style.transform='scale(1.03)'" onmouseout="this.style.backgroundColor='#1a1a1a'; this.style.transform='scale(1)'">Consultar Por WhatsApp</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script src="datos.js"></script>
-</body>
-</html>
+    </header>
