@@ -7,7 +7,7 @@ const infoPropiedades = {
         id: 'habitacion-executive', 
         titulo: "Hotel Grisabel", 
         tipo: "habitacion", 
-        capacityMax: 4, 
+        capacidadMax: 4, 
         linkMaps: "https://www.google.com/maps/place/Hotel+Grisabel/@-31.4195327,-64.4949301,17z/data=!4m9!3m8!1s0x942d6619b35730af:0x7772c6a0d0c8980d!5m2!4m1!1i2!8m2!3d-31.4195373!4d-64.4923552!16s%2Fg%2F1tfrc87n?entry=ttu&g_ep=EgoyMDI2MDYwMS4wIKXMDSoASAFQAw%3D%3D", 
         ubicacionCorta: "Centro, Villa Carlos Paz", 
         descripcion: "Disfrutá de una estadía excelente en las habitaciones del Hotel Grisabel. Equipadas con dos camas matromoniales por habitación, sommiers y baño en suite. Al ser un complejo hotelero, contamos con múltiples habitaciones disponibles: si tu grupo es de más de 4 personas, consultanos por WhatsApp para coordinar la reserva de habitaciones múltiples.",
@@ -441,11 +441,11 @@ function enviarReservaWhatsApp(nombre) {
         mensaje += `\n📅 *Fecha estimativa de ingreso:* *${checkInSolo}*.`;
     }
     
-    window.open(`https://wa.me/5493804899007?text=${encodeURIComponent(mensaje)}`, '_blank'); 
+    window.open(`https://wa.me/5493541523006?text=${encodeURIComponent(mensaje)}`, '_blank'); 
 }
 
 function solicitarServicioPropietario() {
-    window.open(`https://wa.me/5493804899007?text=${encodeURIComponent('Hola, soy propietario y me interesa delegar la gestión de mi alquiler temporario con Hostly.')}`, '_blank');
+    window.open(`https://wa.me/5493541523006?text=${encodeURIComponent('Hola, soy propietario y me interesa delegar la gestión de mi alquiler temporario con Hostly.')}`, '_blank');
 }
 // ==========================================================================
 // 📱 CONTROL PREMIUM DE VIDEO PARA CELULARES (Evita la precarga en móviles)

@@ -38,19 +38,10 @@
             padding: 120px 20px 40px 20px; 
             text-align: center; 
             overflow: hidden; 
-            background-color: #1a1a1a; 
-        }
-        
-        /* 🎥 ESTILOS DEL VIDEO DE FONDO */
-        .video-background {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 100%;
-            height: 100%;
-            object-fit: cover; 
-            transform: translate(-50%, -50%);
-            z-index: 1; 
+            background-image: url('fondo-portada-wsp.png'); 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
 
         /* 🖤 CAPA OSCURA INTERMEDIA */
@@ -213,16 +204,10 @@
             📱 DISPOSITIVOS MÓVILES (MEDIA QUERY RESPONSIVE CORREGIDA)
            ========================================================================== */
         @media (max-width: 768px) {
-            /* Navegación y estructura general */
             nav { padding: 25px 20px; flex-direction: column; gap: 15px; background: transparent; position: absolute; }
             nav h1 { font-size: 1.5rem; letter-spacing: 2px; }
             nav .nav-links { gap: 10px; width: 100%; justify-content: center; }
             nav .nav-links a { font-size: 0.8rem; padding: 6px 12px; }
-
-            /* Ocultamos por completo el elemento de video en el celular */
-            .video-background {
-                display: none !important;
-            }
 
             /* Hero y Foto Estática */
             .hero-seccion { 
@@ -279,11 +264,6 @@
     </nav>
 
     <header class="hero-seccion">
-        <video autoplay muted loop playsinline webkit-playsinline preload="auto" poster="fondo-portada-wsp.png" class="video-background">
-            <source src="Video de fondo Hostly/video-hostly.mp4" type="video/mp4">
-            Tu navegador no soporta la reproducción de videos o el formato del archivo local está dañado.
-        </video>
-
         <div class="hero-contenido">
             <h2>Experiencias <strong>Exclusivas</strong></h2>
             <p>Alojamientos premium en Villa Carlos Paz gestionados con excelencia</p>
