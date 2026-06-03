@@ -211,57 +211,56 @@
         /* ==========================================================================
             📱 DISPOSITIVOS MÓVILES (MEDIA QUERY RESPONSIVE CORREGIDA)
             ========================================================================== */
-        @media (max-width: 768px) {
-            nav { padding: 25px 20px; flex-direction: column; gap: 15px; background: transparent; position: absolute; }
-            nav h1 { font-size: 1.5rem; letter-spacing: 2px; }
-            nav .nav-links { gap: 10px; width: 100%; justify-content: center; }
-            nav .nav-links a { font-size: 0.8rem; padding: 6px 12px; }
+@media (max-width: 768px) {
+    /* Navegación y estructura general */
+    nav { padding: 25px 20px; flex-direction: column; gap: 15px; background: transparent; position: absolute; }
+    nav h1 { font-size: 1.5rem; letter-spacing: 2px; }
+    nav .nav-links { gap: 10px; width: 100%; justify-content: center; }
+    nav .nav-links a { font-size: 0.8rem; padding: 6px 12px; }
 
-            .hero-seccion { min-height: auto; padding: 140px 15px 40px 15px; }
-            .hero-contenido h2 { font-size: 1.8rem; }
-            .hero-contenido p { font-size: 1rem; }
-
-            .buscador-caja { border-radius: 16px; padding: 20px; width: 100%; max-width: 100%; }
-            .buscador-formulario { grid-template-columns: 1fr; gap: 15px; }
-            .input-grupo { padding: 0; border-right: none; border-bottom: 1px solid #eeeeee; padding-bottom: 10px; }
-            .select-wrapper::after { right: 10px; }
-            .boton-buscar { width: 100%; border-radius: 30px; height: 45px; margin-top: 10px; }
-            .boton-buscar span { display: none !important; } 
-            .boton-buscar::after { content: 'BUSCAR AHORA'; font-weight: 700; letter-spacing: 1px; font-size: 0.9rem; }
-
-            .contenedor-fluido { padding: 40px 15px; }
-            .grilla-alojamientos { grid-template-columns: 1fr; gap: 30px; }
-            .titulo-seccion { font-size: 1.5rem; text-align: center; }
-
-            .seccion-propietarios { padding: 50px 20px; border-radius: 8px; margin-top: 40px; }
-            .seccion-propietarios h3 { font-size: 1.6rem; }
-            .seccion-propietarios p { font-size: 1rem; margin-bottom: 30px; }
-            .btn-contacto-propietario { width: 100%; padding: 15px 20px; font-size: 0.9rem; }
-
-            #modal-propiedad > div:last-child { margin: 10px !important; width: calc(100% - 20px) !important; }
-            #modal-propiedad div[style*="height: 450px"] { height: 250px !important; }
-            #modal-titulo { font-size: 1.4rem !important; }
-            #modal-propiedad div[style*="padding: 40px 30px"] { padding: 20px 15px !important; }
-            .calendario-contenedor { padding: 10px; }
-            .cal-dia { min-height: 42px; font-size: 0.8rem; }
-            .cal-dia .monto-dia { font-size: 0.55rem; }
-            
-            /* Ajuste específico para que el bloque de reserva interna del modal se vea bien en celular sin afectar la PC */
-            #modal-propiedad div[style*="background-color: #fafafa"] { flex-direction: column !important; text-align: center !important; padding: 15px !important; }
-            #modal-btn-reservar { width: 100%; text-align: center; padding: 12px 20px; }
-        /* Ajuste para que en celular el video se oculte y muestre la imagen de fondo */
-    @media (max-width: 768px) {
-        .video-hero {
-            display: none !important;
-        }
-        .hero-seccion {
-            background-image: url('fondo-portada-wsp.png');
-            background-size: cover;
-            background-position: center;
-        }
+    /* Hero y Video */
+    .video-hero { display: none !important; }
+    .hero-seccion { 
+        min-height: auto; 
+        padding: 140px 15px 40px 15px;
+        background-image: url('fondo-portada-wsp.png');
+        background-size: cover;
+        background-position: center;
     }
-        }
+    .hero-contenido h2 { font-size: 1.8rem; }
+    .hero-contenido p { font-size: 1rem; }
 
+    /* Buscador */
+    .buscador-caja { border-radius: 16px; padding: 20px; width: 100%; max-width: 100%; }
+    .buscador-formulario { grid-template-columns: 1fr; gap: 15px; }
+    .input-grupo { padding: 0; border-right: none; border-bottom: 1px solid #eeeeee; padding-bottom: 10px; }
+    .select-wrapper::after { right: 10px; }
+    .boton-buscar { width: 100%; border-radius: 30px; height: 45px; margin-top: 10px; }
+    .boton-buscar span { display: none !important; } 
+    .boton-buscar::after { content: 'BUSCAR AHORA'; font-weight: 700; letter-spacing: 1px; font-size: 0.9rem; }
+
+    /* Contenido y Propietarios */
+    .contenedor-fluido { padding: 40px 15px; }
+    .grilla-alojamientos { grid-template-columns: 1fr; gap: 30px; }
+    .titulo-seccion { font-size: 1.5rem; text-align: center; }
+    .seccion-propietarios { padding: 50px 20px; border-radius: 8px; margin-top: 40px; }
+    .seccion-propietarios h3 { font-size: 1.6rem; }
+    .seccion-propietarios p { font-size: 1rem; margin-bottom: 30px; }
+    .btn-contacto-propietario { width: 100%; padding: 15px 20px; font-size: 0.9rem; }
+
+    /* Modal y Calendario */
+    #modal-propiedad > div:last-child { margin: 10px !important; width: calc(100% - 20px) !important; }
+    #modal-propiedad div[style*="height: 450px"] { height: 250px !important; }
+    #modal-titulo { font-size: 1.4rem !important; }
+    #modal-propiedad div[style*="padding: 40px 30px"] { padding: 20px 15px !important; }
+    .calendario-contenedor { padding: 10px; }
+    .cal-dia { min-height: 42px; font-size: 0.8rem; }
+    .cal-dia .monto-dia { font-size: 0.55rem; }
+    
+    /* Reserva interna del modal */
+    #modal-propiedad div[style*="background-color: #fafafa"] { flex-direction: column !important; text-align: center !important; padding: 15px !important; }
+    #modal-btn-reservar { width: 100%; text-align: center; padding: 12px 20px; }
+    }
     </style>
 </head>
 <body>
