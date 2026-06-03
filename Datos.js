@@ -447,3 +447,22 @@ function enviarReservaWhatsApp(nombre) {
 function solicitarServicioPropietario() {
     window.open(`https://wa.me/5493804899007?text=${encodeURIComponent('Hola, soy propietario y me interesa delegar la gestión de mi alquiler temporario con Hostly.')}`, '_blank');
 }
+// ==========================================================================
+// 📱 CONTROL PREMIUM DE VIDEO PARA CELULARES (Evita la precarga en móviles)
+// ==========================================================================
+function corregirVideoMovil() {
+    // Si el ancho de diseño de la pantalla es menor o igual a 768px
+    if (window.innerWidth <= 768) {
+        var video = document.querySelector('.video-background');
+        if (video) {
+            video.remove(); // Elimina por completo el elemento del mapa del sitio
+            console.log("Video removido con éxito para optimizar el celular.");
+        }
+    }
+}
+
+// Se ejecuta apenas carga el script de datos
+corregirVideoMovil();
+
+// Por las dudas, si el usuario gira el celular de horizontal a vertical
+window.addEventListener('resize', corregirVideoMovil);
