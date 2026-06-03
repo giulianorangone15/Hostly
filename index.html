@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hostly | Gestión Premium de Alquileres Temporarios</title>
     
-    <link rel="icon" type="image/png" href="logo Hostly\logo-hostly.png">
-    <link rel="apple-touch-icon" href="logo Hostly\logo-hostly.png">
+    <link rel="icon" type="image/png" href="logo-app.png">
+    <link rel="apple-touch-icon" href="logo-app.png">
     <meta name="apple-mobile-web-app-title" content="Hostly">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,12 +21,7 @@
         
         /* Navegación */
         nav { position: absolute; top: 0; left: 0; width: 100%; z-index: 10; padding: 25px 50px; display: flex; justify-content: space-between; align-items: center; background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0)); }
-        
-        /* Contenedor y dimensiones para el Logo */
-        .logo-enlace { display: flex; align-items: center; text-decoration: none; transition: transform 0.3s ease; }
-        .logo-enlace:hover { transform: scale(1.02); }
-        .logo-img { height: 42px; width: auto; object-fit: contain; display: block; }
-
+        nav h1 { font-size: 1.8rem; letter-spacing: 4px; color: #ffffff; text-transform: uppercase; font-weight: 700; }
         nav .nav-links { display: flex; gap: 20px; }
         nav .nav-links a { color: #ffffff; text-decoration: none; font-weight: 600; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px; border: 1px solid transparent; padding: 8px 16px; border-radius: 30px; transition: all 0.3s; }
         nav .nav-links a.btn-propietario { background-color: rgba(255, 255, 255, 0.2); border-color: #ffffff; }
@@ -214,11 +209,11 @@
         footer { background-color: #1a1a1a; color: #ffffff; text-align: center; padding: 50px 20px; margin-top: 100px; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; opacity: 0.8; }
 
         /* ==========================================================================
-           📱 DISPOSITIVOS MÓVILES (MEDIA QUERY RESPONSIVE CORREGIDA)
-           ========================================================================== */
+            📱 DISPOSITIVOS MÓVILES (MEDIA QUERY RESPONSIVE CORREGIDA)
+            ========================================================================== */
         @media (max-width: 768px) {
             nav { padding: 25px 20px; flex-direction: column; gap: 15px; background: transparent; position: absolute; }
-            .logo-img { height: 35px; } /* Ajuste de tamaño del logo para pantallas de celular */
+            nav h1 { font-size: 1.5rem; letter-spacing: 2px; }
             nav .nav-links { gap: 10px; width: 100%; justify-content: center; }
             nav .nav-links a { font-size: 0.8rem; padding: 6px 12px; }
 
@@ -251,7 +246,7 @@
             .cal-dia { min-height: 42px; font-size: 0.8rem; }
             .cal-dia .monto-dia { font-size: 0.55rem; }
             
-            /* Bloque responsivo de reserva en celular sin pisar PC */
+            /* Ajuste específico para que el bloque de reserva interna del modal se vea bien en celular sin afectar la PC */
             #modal-propiedad div[style*="background-color: #fafafa"] { flex-direction: column !important; text-align: center !important; padding: 15px !important; }
             #modal-btn-reservar { width: 100%; text-align: center; padding: 12px 20px; }
         }
@@ -260,9 +255,7 @@
 <body>
 
     <nav>
-        <a href="#" class="logo-enlace">
-            <img src="logo-hostly.png" alt="Hostly Premium Management" class="logo-img">
-        </a>
+        <h1>Hostly</h1>
         <div class="nav-links">
             <a href="#catalogo">Propiedades</a>
             <a href="#propietarios" class="btn-propietario">Para Propietarios</a>
