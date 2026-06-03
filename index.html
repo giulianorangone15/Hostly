@@ -136,7 +136,7 @@
         .boton-buscar:hover { background-color: #007a78; transform: scale(1.05); }
 
         /* Contenedor de Catálogo */
-        .contenedor-fluido { max-width: 1300px; margin: 0 auto; padding: 80px 20px; width: 100%; }
+        .contenedor-fluid { max-width: 1300px; margin: 0 auto; padding: 80px 20px; width: 100%; }
         
         /* Contenedor del Título y el Botón de Limpiar */
         .catalogo-header-caja { display: flex; justify-content: center; align-items: center; gap: 20px; margin-bottom: 40px; position: relative; flex-wrap: wrap; }
@@ -210,14 +210,14 @@
            📱 DISPOSITIVOS MÓVILES (MEDIA QUERY RESPONSIVE)
            ========================================================================== */
         @media (max-width: 768px) {
-            /* Navegación para celu */
-            nav { padding: 20px; flex-direction: column; gap: 15px; background: rgba(0,0,0,0.7); position: relative; }
+            /* Navegación para celu - Completamente transparente e integrada */
+            nav { padding: 25px 20px; flex-direction: column; gap: 15px; background: transparent; position: absolute; }
             nav h1 { font-size: 1.5rem; letter-spacing: 2px; }
             nav .nav-links { gap: 10px; width: 100%; justify-content: center; }
             nav .nav-links a { font-size: 0.8rem; padding: 6px 12px; }
 
             /* Hero Ajustes */
-            .hero-seccion { min-height: auto; padding: 60px 15px; }
+            .hero-seccion { min-height: auto; padding: 140px 15px 40px 15px; }
             .hero-contenido h2 { font-size: 1.8rem; }
             .hero-contenido p { font-size: 1rem; }
 
@@ -227,7 +227,7 @@
             .input-grupo { padding: 0; border-right: none; border-bottom: 1px solid #eeeeee; padding-bottom: 10px; }
             .select-wrapper::after { right: 10px; }
             .boton-buscar { width: 100%; border-radius: 30px; height: 45px; margin-top: 10px; }
-            .boton-buscar span { display: none !important; } /* Oculta la lupa armada con CSS viejo */
+            .boton-buscar span { display: none !important; } 
             .boton-buscar::after { content: 'BUSCAR AHORA'; font-weight: 700; letter-spacing: 1px; font-size: 0.9rem; }
 
             /* Catálogo y Grillas */
