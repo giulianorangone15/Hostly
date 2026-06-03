@@ -411,7 +411,7 @@ function enviarReservaWhatsApp(nombre) {
     const paxCantidad = document.getElementById('pasajeros-cantidad').value;
     const textoPax = paxCantidad === 'todos' ? '2 personas' : (paxCantidad === '10' ? 'más de 6 personas' : `${paxCantidad} personas`);
     
-    let mensaje = `Hola Hostly, me interesa consultar disponibilidad para la propiedad: *${nombre}*.\n`;
+    let mensaje = `Hola Hostly, Quiero reservar la propiedad: *${nombre}*.\n`;
     mensaje += `Para una capacidad de: *${textoPax}*.`;
     
     if (fechaInicioSeleccionada && fechaFinSeleccionada) {
@@ -434,7 +434,7 @@ function enviarReservaWhatsApp(nombre) {
         }
         
         mensaje += `\n📅 *Fechas solicitadas:* Desde el *${checkIn}* hasta el *${checkOut}* (${cantidadNoches} noches).`;
-        mensaje += `\n💰 *Presupuesto estimado:* $${totalWhatsApp.toLocaleString('es-AR')}`;
+        mensaje += `\n💰 *Precio Final:* $${totalWhatsApp.toLocaleString('es-AR')}`;
     } else if (fechaInicioSeleccionada) {
         const opciones = { day: '2-digit', month: '2-digit', year: 'numeric' };
         const checkInSolo = fechaInicioSeleccionada.toLocaleDateString('es-AR', opciones);
@@ -447,22 +447,3 @@ function enviarReservaWhatsApp(nombre) {
 function solicitarServicioPropietario() {
     window.open(`https://wa.me/5493541523006?text=${encodeURIComponent('Hola, soy propietario y me interesa delegar la gestión de mi alquiler temporario con Hostly.')}`, '_blank');
 }
-// ==========================================================================
-// 📱 CONTROL PREMIUM DE VIDEO PARA CELULARES (Evita la precarga en móviles)
-// ==========================================================================
-function corregirVideoMovil() {
-    // Si el ancho de diseño de la pantalla es menor o igual a 768px
-    if (window.innerWidth <= 768) {
-        var video = document.querySelector('.video-background');
-        if (video) {
-            video.remove(); // Elimina por completo el elemento del mapa del sitio
-            console.log("Video removido con éxito para optimizar el celular.");
-        }
-    }
-}
-
-// Se ejecuta apenas carga el script de datos
-corregirVideoMovil();
-
-// Por las dudas, si el usuario gira el celular de horizontal a vertical
-window.addEventListener('resize', corregirVideoMovil);
