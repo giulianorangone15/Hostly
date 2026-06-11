@@ -12,254 +12,90 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="estilos.css">
     
-    <style>
-        /* ESTILO PREMIUM INTEGRADO */
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        html, body { width: 100%; max-width: 100%; overflow-x: hidden; position: relative; scroll-behavior: smooth; }
-        body { font-family: 'Urbanist', sans-serif; background-color: #ffffff; color: #1a1a1a; line-height: 1.6; }
-        
-        /* Navegación */
-        nav { position: absolute; top: 0; left: 0; width: 100%; z-index: 10; padding: 25px 50px; display: flex; justify-content: space-between; align-items: center; background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0)); }
-        nav h1 { font-size: 1.8rem; letter-spacing: 4px; color: #ffffff; text-transform: uppercase; font-weight: 700; }
-        nav .nav-links { display: flex; gap: 20px; }
-        nav .nav-links a { color: #ffffff; text-decoration: none; font-weight: 600; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px; border: 1px solid transparent; padding: 8px 16px; border-radius: 30px; transition: all 0.3s; }
-        nav .nav-links a.btn-propietario { background-color: rgba(255, 255, 255, 0.2); border-color: #ffffff; }
-        nav .nav-links a.btn-propietario:hover { background-color: #ffffff; color: #1a1a1a; }
-
-        /* Hero Header */
-        .hero-seccion { 
-            position: relative; 
-            min-height: 75vh; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: center; 
-            align-items: center; 
-            padding: 120px 20px 40px 20px; 
-            text-align: center; 
-            overflow: hidden; 
-            background-image: url('fondo-portada-wsp.png'); 
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-
-        /* 🖤 CAPA OSCURA INTERMEDIA */
-        .hero-seccion::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.4); 
-            z-index: 2; 
-        }
-
-        /* Contenido flota sobre el video y el filtro */
-        .hero-contenido { 
-            color: #ffffff; 
-            margin-bottom: 40px; 
-            position: relative;
-            z-index: 3; 
-        }
-        .hero-contenido h2 { font-size: clamp(2.2rem, 6vw, 4rem); margin: 0 0 15px 0; font-weight: 300; letter-spacing: 2px; text-transform: uppercase; }
-        .hero-contenido h2 strong { font-weight: 700; color: #ffffff; }
-        .hero-contenido p { font-size: clamp(1.1rem, 2vw, 1.4rem); margin: 0; opacity: 0.9; font-weight: 400; }
-
-        /* Buscador Ultra-Minimalista */
-        .buscador-caja { 
-            background-color: #ffffff; 
-            padding: 15px 35px; 
-            border-radius: 50px; 
-            box-shadow: 0 15px 40px rgba(0,0,0,0.06); 
-            width: 100%; 
-            max-width: 700px; 
-            position: relative;
-            z-index: 3; 
-        }
-        .buscador-formulario { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) 60px; gap: 10px; align-items: center; }
-        
-        .input-grupo { display: flex; flex-direction: column; text-align: left; padding: 0 15px; border-right: 1px solid #eeeeee; position: relative; }
-        .input-grupo:last-of-type { border-right: none; }
-        .input-grupo label { font-size: 0.7rem; font-weight: 700; color: #a0a0a0; margin-bottom: 2px; text-transform: uppercase; letter-spacing: 1px; }
-        
-        .input-grupo select {
-            width: 100%;
-            padding: 6px 20px 6px 0;
-            border: none;
-            font-family: 'Urbanist', sans-serif;
-            font-size: 1rem;
-            color: #1a1a1a;
-            font-weight: 600;
-            outline: none;
-            background: transparent;
-            cursor: pointer;
-            appearance: none;
-            -webkit-appearance: none;
-        }
-
-        /* DESPLEGABLE PREMIUM */
-        .input-grupo select option { 
-            background-color: #ffffff; 
-            color: #1a1a1a; 
-            font-family: 'Urbanist', sans-serif;
-            font-weight: 600;
-            font-size: 0.95rem;
-            padding: 12px;
-        }
-
-        .input-grupo select:focus { outline: none; border: none; }
-        .select-wrapper { position: relative; width: 100%; }
-        .select-wrapper::after {
-            content: '';
-            position: absolute;
-            right: 5px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 0;
-            height: 0;
-            border-left: 4px solid transparent;
-            border-right: 4px solid transparent;
-            border-top: 5px solid #1a1a1a;
-            pointer-events: none;
-        }
-
-        .boton-buscar { background-color: #1a1a1a; color: #ffffff; border: none; height: 50px; width: 50px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s; justify-self: center; position: relative; }
-        .boton-buscar:hover { background-color: #007a78; transform: scale(1.05); }
-
-        /* Contenedor de Catálogo */
-        .contenedor-fluido { max-width: 1300px; margin: 0 auto; padding: 80px 20px; width: 100%; box-sizing: border-box; }
-        
-        /* Contenedor del Título y el Botón de Limpiar */
-        .catalogo-header-caja { display: flex; justify-content: center; align-items: center; gap: 20px; margin-bottom: 40px; position: relative; flex-wrap: wrap; }
-        .titulo-seccion { font-size: 2rem; font-weight: 300; text-transform: uppercase; letter-spacing: 2px; margin: 0; }
-        .titulo-seccion strong { font-weight: 700; }
-        
-        /* Botón Limpiar Filtros Estilo Premium */
-        .btn-limpiar-filtros { background-color: #f5f5f5; color: #777777; border: 1px solid #eeeeee; padding: 8px 18px; border-radius: 20px; font-family: 'Urbanist', sans-serif; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 6px; }
-        .btn-limpiar-filtros:hover { background-color: #1a1a1a; color: #ffffff; border-color: #1a1a1a; transform: translateY(-2px); }
-        
-        /* Grilla de Tarjetas */
-        .grilla-alojamientos { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 40px; width: 100%; }
-        .tarjeta-alojamiento { background-color: transparent; overflow: hidden; transition: transform 0.4s ease; display: flex; flex-direction: column; cursor: pointer; color: inherit; text-decoration: none; }
-        .tarjeta-alojamiento:hover { transform: translateY(-8px); }
-        
-        /* Fotos */
-        .foto-contenedor { position: relative; width: 100%; height: 260px; border-radius: 8px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
-        .foto-contenedor img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
-        .tarjeta-alojamiento:hover .foto-contenedor img { transform: scale(1.05); }
-        
-        .tarjeta-info { padding: 20px 5px 10px 5px; display: flex; flex-direction: column; flex-grow: 1; }
-        .tarjeta-info h4 { margin: 0 0 6px 0; font-size: 1.3rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
-        .ubicacion { margin: 0 0 15px 0; font-size: 0.9rem; color: #777777; font-weight: 400; }
-        .servicios { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 15px; font-size: 0.85rem; color: #555555; }
-        
-        .tarjeta-precio-boton { display: flex; justify-content: space-between; align-items: flex-end; border-top: 1px solid #eeeeee; padding-top: 15px; margin-top: auto; }
-        .precio-caja { display: flex; flex-direction: column; }
-        .precio-leyenda { font-size: 0.75rem; color: #888888; text-transform: uppercase; }
-        .precio-monto { font-size: 1.3rem; font-weight: 700; color: #1a1a1a; }
-        .enlace-ver-mas { font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #1a1a1a; border-bottom: 2px solid #1a1a1a; padding-bottom: 2px; }
-
-        /* CALENDARIO PREMIUM ACTUALIZADO */
-        .calendario-contenedor { margin-top: 20px; background: #ffffff; border: 1px solid #1a1a1a; border-radius: 12px; padding: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
-        .calendario-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; font-weight: 700; text-transform: uppercase; font-size: 0.95rem; letter-spacing: 1.5px; color: #1a1a1a; border-bottom: 1px solid #eeeeee; padding-bottom: 12px; }
-        .calendario-mes-btn { background: none; border: none; font-size: 1.1rem; cursor: pointer; color: #1a1a1a; padding: 5px 15px; border-radius: 50%; transition: background 0.3s; }
-        .calendario-mes-btn:hover { background-color: #f5f5f5; }
-        .calendario-grilla { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; text-align: center; }
-        .calendario-dias-semana { font-size: 0.75rem; font-weight: 700; color: #a0a0a0; text-transform: uppercase; margin-bottom: 10px; }
-        
-        .cal-dia { padding: 8px 0; font-size: 0.95rem; font-weight: 700; border-radius: 6px; color: #1a1a1a; transition: all 0.2s; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 52px; gap: 2px; }
-        .cal-dia .num-dia { font-size: 0.95rem; }
-        .cal-dia .monto-dia { font-size: 0.65rem; font-weight: 600; opacity: 0.85; letter-spacing: 0.3px; }
-        
-        .cal-dia.disponible { background-color: #f7f9f8; color: #007a78; border: 1px solid rgba(0, 122, 120, 0.15); }
-        .cal-dia.disponible .monto-dia { color: #007a78; }
-        .cal-dia.disponible:hover { background-color: #007a78; color: #ffffff !important; cursor: pointer; }
-        .cal-dia.disponible:hover .monto-dia { color: #ffffff !important; opacity: 1; }
-        
-        .cal-dia.ocupado { background-color: #fafafa; color: #d0d0d0; opacity: 0.5; cursor: not-allowed; border: 1px solid #eeeeee; }
-        .cal-dia.ocupado .num-dia { text-decoration: line-through; }
-        .cal-dia.ocupado .monto-dia { display: none; }
-        .cal-dia.vacio { background: transparent; }
-
-        .cal-dia.seleccionado { background-color: #1a1a1a !important; color: #ffffff !important; border-color: #1a1a1a !important; }
-        .cal-dia.seleccionado .monto-dia { color: #ffffff !important; opacity: 1; }
-        .cal-dia.en-rango { background-color: rgba(0, 122, 120, 0.1) !important; color: #007a78 !important; border-radius: 0 !important; border-color: rgba(0, 122, 120, 0.05) !important; }
-        .cal-dia.en-rango .monto-dia { color: #007a78 !important; }
-
-        /* Sección Captación Propietarios */
-        .seccion-propietarios { background-image: linear-gradient(rgba(26, 26, 26, 0.95), rgba(26, 26, 26, 0.95)), url('fondo-portada-wsp.png'); background-size: cover; background-position: center; color: #ffffff; padding: 100px 40px; text-align: center; border-radius: 16px; margin-top: 80px; }
-        .propietarios-contenido { max-width: 800px; margin: 0 auto; }
-        .seccion-propietarios h3 { font-size: 2.3rem; font-weight: 300; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; }
-        .seccion-propietarios h3 strong { font-weight: 700; color: #007a78; }
-        .seccion-propietarios p { font-size: 1.15rem; opacity: 0.85; margin-bottom: 40px; font-weight: 300; }
-        .btn-contacto-propietario { background-color: #ffffff; color: #1a1a1a; text-decoration: none; padding: 18px 40px; font-size: 1rem; font-weight: 700; border-radius: 40px; text-transform: uppercase; display: inline-block; transition: all 0.3s; border: none; cursor: pointer; font-family: 'Urbanist', sans-serif; }
-        .btn-contacto-propietario:hover { background-color: #007a78; color: #ffffff; }
-
-        #sin-resultados { display: none; text-align: center; padding: 60px; font-size: 1.2rem; color: #777777; grid-column: 1 / -1; }
-        footer { background-color: #1a1a1a; color: #ffffff; text-align: center; padding: 50px 20px; margin-top: 100px; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; opacity: 0.8; }
-
-        /* ==========================================================================
-            📱 DISPOSITIVOS MÓVILES (MEDIA QUERY RESPONSIVE CORREGIDA)
-           ========================================================================== */
-        @media (max-width: 768px) {
-            nav { padding: 25px 20px; flex-direction: column; gap: 15px; background: transparent; position: absolute; }
-            nav h1 { font-size: 1.5rem; letter-spacing: 2px; }
-            nav .nav-links { gap: 10px; width: 100%; justify-content: center; }
-            nav .nav-links a { font-size: 0.8rem; padding: 6px 12px; }
-
-            /* Hero y Foto Estática */
-            .hero-seccion { 
-                min-height: auto; 
-                padding: 140px 15px 40px 15px;
-                background-image: url('fondo-portada-wsp.png');
-                background-size: cover;
-                background-position: center;
-            }
-            .hero-contenido h2 { font-size: 1.8rem; }
-            .hero-contenido p { font-size: 1rem; }
-
-            /* Buscador */
-            .buscador-caja { border-radius: 16px; padding: 20px; width: 100%; max-width: 100%; }
-            .buscador-formulario { grid-template-columns: 1fr; gap: 15px; }
-            .input-grupo { padding: 0; border-right: none; border-bottom: 1px solid #eeeeee; padding-bottom: 10px; }
-            .select-wrapper::after { right: 10px; }
-            .boton-buscar { width: 100%; border-radius: 30px; height: 45px; margin-top: 10px; }
-            .boton-buscar span { display: none !important; } 
-            .boton-buscar::after { content: 'BUSCAR AHORA'; font-weight: 700; letter-spacing: 1px; font-size: 0.9rem; }
-
-            /* Contenido y Propietarios */
-            .contenedor-fluido { padding: 40px 15px; }
-            .grilla-alojamientos { grid-template-columns: 1fr; gap: 30px; }
-            .titulo-seccion { font-size: 1.5rem; text-align: center; }
-            .seccion-propietarios { padding: 50px 20px; border-radius: 8px; margin-top: 40px; }
-            .seccion-propietarios h3 { font-size: 1.6rem; }
-            .seccion-propietarios p { font-size: 1rem; margin-bottom: 30px; }
-            .btn-contacto-propietario { width: 100%; padding: 15px 20px; font-size: 0.9rem; }
-
-            /* Modal y Calendario */
-            #modal-propiedad > div:last-child { margin: 10px !important; width: calc(100% - 20px) !important; }
-            #modal-propiedad div[style*="height: 450px"] { height: 250px !important; }
-            #modal-titulo { font-size: 1.4rem !important; }
-            #modal-propiedad div[style*="padding: 40px 30px"] { padding: 20px 15px !important; }
-            .calendario-contenedor { padding: 10px; }
-            .cal-dia { min-height: 42px; font-size: 0.8rem; }
-            .cal-dia .monto-dia { font-size: 0.55rem; }
-            
-            /* Reserva interna del modal */
-            #modal-propiedad div[style*="background-color: #fafafa"] { flex-direction: column !important; text-align: center !important; padding: 15px !important; }
-            #modal-btn-reservar { width: 100%; text-align: center; padding: 12px 20px; }
-        }
-    </style>
 </head>
 <body>
+<div id="pantalla-login-obligatorio" class="login-split-container">
+    
+    <div class="login-left-side">
+        <div class="login-overlay-text">
+            <h2>Disfrutá Carlos Paz</h2>
+            <p>Encontrá los mejores complejos, departamentos y cabañas en un solo lugar.</p>
+        </div>
+    </div>
+    
+    <div class="login-right-side">
+        <div class="login-form-wrapper">
+            
+            <div class="hostly-brand-login">
+                <span class="hostly-brand-icon">🏨</span>
+                <span class="hostly-brand-name">Hostly</span>
+            </div>
+            
+            <h1 class="welcome-title">¡Bienvenido!</h1>
+            <p class="welcome-subtitle">Ingresá tus datos para acceder al catálogo.</p>
+            
+            <form id="form-login-tradicional" onsubmit="event.preventDefault(); iniciarSesionTradicional();">
+                <div class="input-group-hostly">
+                    <label for="login-email">Correo electrónico</label>
+                    <input type="email" id="login-email" placeholder="ejemplo@correo.com" required>
+                </div>
+                
+                <div class="input-group-hostly">
+                    <div class="label-row-hostly">
+                        <label for="login-password">Contraseña</label>
+                        <a href="#" onclick="alert('Próximamente: Recuperación de contraseña')" class="forgot-password-link">¿Olvidaste tu contraseña?</a>
+                    </div>
+                    <input type="password" id="login-password" placeholder="Ingresá tu contraseña" required>
+                </div>
+                
+                <button type="submit" class="btn-primary-hostly">Iniciar Sesión</button>
+            </form>
+            
+            <div class="login-separator">
+                <span>o continuar con</span>
+            </div>
+            
+            <button id="btn-login-principal" class="btn-google-split" onclick="iniciarSesionGoogle()">
+                <div class="google-svg-box">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="22px" height="22px">
+                        <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+                        <path fill="#4285F4" d="M46.5 24c0-1.55-.15-3.24-.47-4.77H24v9.03h12.75c-.55 2.87-2.16 5.31-4.6 6.96l7.19 5.57c4.21-3.88 6.66-9.59 6.66-16.79z"/>
+                        <path fill="#FBBC05" d="M10.54 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.98-6.19z"/>
+                        <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.19-5.57c-2.21 1.49-5.04 2.38-8.7 2.38-6.26 0-11.57-4.22-13.46-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+                    </svg>
+                </div>
+                <span class="google-btn-text">Google</span>
+            </button>
+            
+            <div class="login-footer-text">
+                <p>¿No tenés cuenta? <a href="#" onclick="alert('Próximamente: Registro de nuevos usuarios')">Crear usuario nuevo</a></p>
+            </div>
+            
+        </div>
+    </div>
+</div>
 
     <nav>
         <h1>Hostly</h1>
-        <div class="nav-links">
-            <a href="#catalogo">Propiedades</a>
-            <a href="#propietarios" class="btn-propietario">Para Propietarios</a>
+        <div class="nav-container-right">
+            <div class="nav-links">
+                <a href="#catalogo">Propiedades</a>
+                <a class="btn-propietario" onclick="abrirModalPublicar()">Para Propietarios</a>
+            </div>
+            
+            <div id="auth-google-container">
+                <button type="button" class="btn-google-auth" id="btn-login-google" onclick="iniciarSesionGoogle()">
+                    <svg width="16" height="16" viewBox="0 0 18 18" style="display:inline-block; vertical-align:middle; margin-right:4px;"><path fill="#4285F4" d="M17.64 9.2c0-.63-.06-1.25-.16-1.84H9v3.47h4.84c-.21 1.12-.84 2.07-1.8 2.71v2.24h2.92c1.71-1.57 2.68-3.88 2.68-6.58z"/><path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.2l-2.92-2.24c-.8.54-1.84.87-3.04.87-2.34 0-4.33-1.57-5.03-3.68H.92v2.3A8.99 8.99 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.97 10.75c-.18-.54-.28-1.12-.28-1.75s.1-1.21.28-1.75V4.95H.92A8.99 8.99 0 0 0 0 9c0 1.48.36 2.89.92 4.15l3.05-2.4z"/><path fill="#EA4335" d="M9 3.58c1.32 0 2.5.45 3.44 1.35L15 2.3A8.99 8.99 0 0 0 .92 4.95l3.05 2.4C4.67 5.15 6.66 3.58 9 3.58z"/></svg>
+                    Ingresar
+                </button>
+                <div class="user-logged-info" id="user-logged-info">
+                    <img src="" alt="Avatar" class="user-avatar" id="user-photo">
+                    <span id="user-name"></span>
+                    <button class="btn-logout" onclick="cerrarSesionGoogle()">Salir</button>
+                </div>
+            </div>
         </div>
     </nav>
 
@@ -323,7 +159,7 @@
             <div class="propietarios-contenido">
                 <h3>¿Tenés una propiedad? <strong>Compramos tu estrés, te devolvemos tu tiempo.</strong></h3>
                 <p>Nos encargamos del 100% de la gestión operativa de tu alquiler temporario: marketing digital, optimización de tarifas, auditoría estricta de limpieza hotelera, check-in/out y cobros. Recibí tu rentabilidad de forma inmediata sin moverte de tu casa.</p>
-                <button type="button" class="btn-contacto-propietario" onclick="solicitarServicioPropietario()">Quiero Más Información</button>
+                <button type="button" class="btn-contacto-propietario" onclick="abrirModalPublicar()">Quiero Más Información</button>
             </div>
         </section>
     </main>
@@ -331,6 +167,61 @@
     <footer>
         <p>Hostly Management Premium © 2026 — Villa Carlos Paz, Córdoba</p>
     </footer>
+
+    <div id="modal-publicar-propiedad" style="display: none !important; position: fixed !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; z-index: 99999 !important; overflow-y: auto !important;">
+        <div onclick="cerrarModalPublicar()" style="position: fixed !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; background-color: #000000 !important; opacity: 0.85 !important; z-index: 100000 !important;"></div>
+        <div style="position: relative !important; background-color: #ffffff !important; background: #ffffff !important; opacity: 1 !important; max-width: 600px; margin: 40px auto !important; border-radius: 12px; overflow: hidden; box-shadow: 0 25px 60px rgba(0,0,0,0.6); display: flex; flex-direction: column; z-index: 100001 !important;">
+            <span onclick="cerrarModalPublicar()" style="position: absolute; top: 15px; right: 20px; font-size: 2rem; color: #1a1a1a !important; cursor: pointer; z-index: 1010; font-weight: 300;">×</span>
+            
+            <div style="padding: 40px 30px; background-color: #ffffff !important;">
+                <h3 style="text-transform: uppercase; letter-spacing: 1px; font-size: 1.4rem; color: #1a1a1a; margin-bottom: 5px; font-weight: 700;">Publicá tu Propiedad</h3>
+                <p style="font-size: 0.9rem; color: #777777; margin-bottom: 25px;">Completá los datos. Tu publicación se enviará al administrador y quedará en estado <strong>"En revisión"</strong> hasta ser autorizada.</p>
+                
+                <form id="form-nueva-propiedad" onsubmit="enviarPropiedadARevision(event)">
+                    <div class="form-grupo">
+                        <label>Título de la Propiedad</label>
+                        <input type="text" id="prop-titulo" placeholder="Ej: Casa Minimalista con Pileta" required>
+                    </div>
+
+                    <div class="form-grupo">
+                        <label>Tipo de Alojamiento</label>
+                        <select id="prop-tipo" required>
+                            <option value="departamento">Departamento</option>
+                            <option value="casa">Casa</option>
+                            <option value="habitacion">Habitación</option>
+                            <option value="cabaña">Cabaña</option>
+                        </select>
+                    </div>
+
+                    <div class="form-grupo">
+                        <label>Capacidad Máxima (Huéspedes)</label>
+                        <input type="number" id="prop-capacidad" min="1" max="20" value="2" required>
+                    </div>
+
+                    <div class="form-grupo">
+                        <label>Precio por Noche (ARS)</label>
+                        <input type="number" id="prop-precio" placeholder="Ej: 45000" required>
+                    </div>
+
+                    <div class="form-grupo">
+                        <label>Descripción General</label>
+                        <textarea id="prop-descripcion" rows="4" placeholder="Contanos sobre las comodidades, ambientes y ubicación..." required></textarea>
+                    </div>
+
+                    <div class="form-grupo">
+                        <label>Foto de la Propiedad</label>
+                        <input type="file" id="prop-foto" accept="image/*" required onchange="procesarYComprimirImagen(event)">
+                        <div id="prop-peso-info" class="peso-info"></div>
+                        <div style="margin-top: 15px; text-align: center;">
+                            <img id="prop-preview-img" style="max-width: 100%; max-height: 180px; display: none; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" alt="Vista previa de propiedad">
+                        </div>
+                    </div>
+
+                    <button type="submit" style="width: 100%; background-color: #1a1a1a; color: #ffffff; border: none; padding: 15px; font-size: 1rem; font-weight: 700; border-radius: 30px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; font-family: 'Urbanist', sans-serif; transition: all 0.3s; margin-top: 10px;" onmouseover="this.style.backgroundColor='#007a78'" onmouseout="this.style.backgroundColor='#1a1a1a'">Enviar a Revisión</button>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <div id="modal-propiedad" style="display: none !important; position: fixed !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; z-index: 99999 !important; overflow-y: auto !important;">
         <div onclick="cerrarModal()" style="position: fixed !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; background-color: #000000 !important; opacity: 0.85 !important; z-index: 100000 !important;"></div>
@@ -380,6 +271,77 @@
             </div>
         </div>
     </div>
+
+    <script>
+        let fotoComprimidaBlob = null; // Almacén global para el archivo liviano final
+
+        // Controladores visuales del nuevo modal de propiedades
+        function abrirModalPublicar() {
+            document.getElementById('modal-publicar-propiedad').style.setProperty('display', 'flex', 'important');
+        }
+        function cerrarModalPublicar() {
+            document.getElementById('modal-publicar-propiedad').style.setProperty('display', 'none', 'important');
+            document.getElementById('form-nueva-propiedad').reset();
+            document.getElementById('prop-preview-img').style.display = 'none';
+            document.getElementById('prop-peso-info').style.display = 'none';
+            fotoComprimidaBlob = null;
+        }
+
+        // 📷 LÓGICA DE COMPRESIÓN DE FOTOS POR CANVAS EN TIEMPO REAL
+        function procesarYComprimirImagen(event) {
+            const archivo = event.target.files[0];
+            if (!archivo) return;
+
+            const infoPeso = document.getElementById('prop-peso-info');
+            const vistaPrevia = document.getElementById('prop-preview-img');
+            
+            const lector = new FileReader();
+            lector.readAsDataURL(archivo);
+            lector.onload = function(e) {
+                const img = new Image();
+                img.src = e.target.result;
+                img.onload = function() {
+                    // Escalar proporcionalmente a un máximo de 1200px de ancho (ideal para web premium)
+                    const maxAncho = 1200;
+                    let ancho = img.width;
+                    let alto = img.height;
+
+                    if (ancho > maxAncho) {
+                        alto = Math.round((alto * maxAncho) / ancho);
+                        ancho = maxAncho;
+                    }
+
+                    const canvas = document.createElement('canvas');
+                    canvas.width = ancho;
+                    canvas.height = alto;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, ancho, alto);
+
+                    // Reducción a JPEG de alta fidelidad pero peso pluma (Calidad 75%)
+                    canvas.toBlob(function(blob) {
+                        fotoComprimidaBlob = blob;
+                        vistaPrevia.src = URL.createObjectURL(blob);
+                        vistaPrevia.style.display = 'block';
+                        
+                        infoPeso.innerText = `¡Foto optimizada! Peso reducido a: ${(blob.size / 1024).toFixed(0)} KB`;
+                        infoPeso.style.display = 'block';
+                    }, 'image/jpeg', 0.75);
+                };
+            };
+        }
+
+        // Simulación de envío hasta conectar tu Firebase/JS
+        function enviarPropiedadARevision(e) {
+            e.preventDefault();
+            if(!fotoComprimidaBlob){
+                alert("Por favor, esperá a que cargue y se optimice la imagen.");
+                return;
+            }
+            // Aquí actuará la lógica de roles que armaremos en tu JS
+            alert("¡Éxito! Tu propiedad fue registrada. Se encuentra en estado 'En revisión' hasta que el Administrador autorice su publicación.");
+            cerrarModalPublicar();
+        }
+    </script>
 
     <script src="datos.js"></script>
 </body>

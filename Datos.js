@@ -1,3 +1,84 @@
+// ============================================================================================
+// 🌐 CONTROL DE INTERFAZ Y LOGIN PRINCIPAL (HOSTLY)
+// ============================================================================================
+
+let usuarioActual = null;
+
+function iniciarSesionTradicional() {
+    const emailInput = document.getElementById('login-email');
+    const email = emailInput ? emailInput.value : "usuario@hostly.com";
+    
+    usuarioActual = {
+        uid: "user_tradicional_123",
+        displayName: email.split('@')[0],
+        email: email,
+        photoURL: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80"
+    };
+    
+    console.log("Sesión iniciada vía formulario tradicional.");
+    actualizarInterfazUsuario();
+}
+
+async function iniciarSesionGoogle() {
+    try {
+        usuarioActual = {
+            uid: "google_uid_giuliano_21",
+            displayName: "Giuliano",
+            email: "giuliano.mecanica@gmail.com",
+            photoURL: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80"
+        };
+        console.log("Sesión iniciada con Google.");
+        actualizarInterfazUsuario();
+    } catch (error) {
+        console.error("Error en Google Auth:", error);
+    }
+}
+
+async function cerrarSesionGoogle() {
+    usuarioActual = null;
+    actualizarInterfazUsuario();
+}
+
+function actualizarInterfazUsuario() {
+    const vistaBloqueo = document.getElementById('pantalla-login-obligatorio');
+    const navbarPrincipal = document.getElementById('navbar-principal');
+    const avatarNavbar = document.getElementById('avatar-navbar');
+    const menuNombre = document.getElementById('menu-nombre-usuario');
+    const menuEmail = document.getElementById('menu-email-usuario');
+
+    if (usuarioActual) {
+        if (vistaBloqueo) vistaBloqueo.style.display = 'none';
+        if (navbarPrincipal) navbarPrincipal.style.display = 'flex';
+        if (avatarNavbar) avatarNavbar.src = usuarioActual.photoURL;
+        if (menuNombre) menuNombre.innerText = usuarioActual.displayName;
+        if (menuEmail) menuEmail.innerText = usuarioActual.email;
+    } else {
+        if (vistaBloqueo) vistaBloqueo.style.display = 'flex';
+        if (navbarPrincipal) navbarPrincipal.style.display = 'none';
+    }
+}
+
+function toggleMenuMenu() {
+    const menu = document.getElementById('menu-desplegable');
+    if (menu) menu.classList.toggle('mostrar');
+}
+
+function solicitarServicioPropietario() {
+    alert("¡Hola! Pronto vas a poder subir tus propiedades.");
+}
+
+window.addEventListener('click', (e) => {
+    const menu = document.getElementById('menu-desplegable');
+    const zonaUsuario = document.querySelector('.navbar-usuario-zona');
+    if (menu && menu.classList.contains('mostrar') && zonaUsuario && !zonaUsuario.contains(e.target)) {
+        menu.classList.remove('mostrar');
+    }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    actualizarInterfazUsuario();
+});
+
 // ===========================
 // 💾 BASE DE DATOS DE Hostly
 // ===========================
@@ -72,7 +153,7 @@ const infoPropiedades = {
         capacidadMax: 10,
         linkMaps: "https://maps.google.com",
         ubicacionCorta: "Zona Altas Cumbres, Villa Carlos Paz",
-        descripcion: "Desconexión absoluta en una espectacular estructura de troncos y piedra de alta gama. Equipada con un imponente hogar a leña para el invierno, piscina privada templada y un deck de madera flotante suspendido sobre las sierras.",
+        descripcion: "Desconexión absoluta en una spectacular estructura de troncos y piedra de alta gama. Equipada con un imponente hogar a leña para el invierno, piscina privada templada y un deck de madera flotante suspendido sobre las sierras.",
         servicios: ["🏊 Piscina Privada", "🔥 Hogar a Leña", "🌐 Wi-Fi Libre", "🚗 Estacionamiento Techado"],
         precios: { 1: 60000, 2: 65000, 3: 75000, 4: 85000, 5: 95000, 6: 110000, 10: 135000 },
         imagenes: [
@@ -99,38 +180,31 @@ const fechasFeriados = [
     "2026-07-09", "2026-08-17", "2026-10-12", "2026-11-23", "2026-12-08", "2026-12-25"
 ];
 
-// Función para verificar si un día es temporada alta de vacaciones
 function verificarSiEsVacaciones(mes, dia) {
-    // Verano: Todo Enero (mes 0) y Todo Febrero (mes 1)
-    if (mes === 0 || mes === 1) {
-        return true;
-    }
-    // Invierno: Julio completo (mes 6)
-    if (mes === 6) {
-        return true;
-    }
+    if (mes === 0 || mes === 1) return true;
+    if (mes === 6) return true;
     return false;
 }
 
-// Función auxiliar para calcular el precio exacto de una fecha específica
 function calcularPrecioDia(fechaObj, precioBase) {
     const yyyy = fechaObj.getFullYear();
     const mm = String(fechaObj.getMonth() + 1).padStart(2, '0');
     const dd = String(fechaObj.getDate()).padStart(2, '0');
     const fechaStr = `${yyyy}-${mm}-${dd}`;
     
-    // Regla de oro: Si es feriado, aplica el 40% (manda el feriado siempre)
     if (fechasFeriados.includes(fechaStr)) {
         return precioBase * (1 + PORCENTAJE_AUMENTO_FERIADO);
     }
-    
-    // Si no es feriado, pero es época de vacaciones, aplica el 30%
     if (verificarSiEsVacaciones(fechaObj.getMonth(), fechaObj.getDate())) {
         return precioBase * (1 + PORCENTAJE_AUMENTO_VACACIONES);
     }
-    
-    return precioBase; // Tarifa estándar
+    return precioBase;
 }
+
+// ============================================================================================
+// 🔐 ESTADO GLOBAL DE AUTENTICACIÓN
+// ============================================================================================
+let usuarioActual = null; 
 
 // ============================================================================================
 // ⚙️ LÓGICA DE FUNCIONAMIENTO (Sincronizada y Optimizada)
@@ -144,7 +218,6 @@ let fechaCalendarioActual = new Date();
 let fechaInicioSeleccionada = null; 
 let fechaFinSeleccionada = null;    
 
-// 🛠️ CORRECCIÓN DE AUTOSCROLL PARA CELULARES
 window.addEventListener('DOMContentLoaded', () => { 
     renderizarCatalogo(); 
     setTimeout(() => { window.scrollTo(0, 0); }, 10);
@@ -254,7 +327,11 @@ function verPropiedad(idPropiedad) {
     actualizarPrecioModal();
     generarCalendarioInterno();
     
-    document.getElementById('modal-btn-reservar').setAttribute('onclick', `enviarReservaWhatsApp('${p.titulo}')`);
+    // Vinculamos el click al interceptor que valida la sesión de Google antes de mandar el WhatsApp
+    document.getElementById('modal-btn-reservar').onclick = () => {
+        interceptarYGuardarReserva(p.titulo);
+    };
+    
     document.getElementById('modal-propiedad').style.setProperty('display', 'block', 'important');
 }
 
@@ -277,7 +354,6 @@ function generarCalendarioInterno() {
     const pasajerosSeleccionados = pasajerosValor === 'todos' ? 2 : parseInt(pasajerosValor);
     let precioBaseNoche = prop.precios[pasajerosSeleccionados] || prop.precios[prop.capacidadMax] || prop.precios[1];
     
-    // ⏰ FECHAS PASADAS: Conseguimos el día de hoy limpio (00:00 hs) para comparar con precisión
     const hoy = new Date();
     hoy.setHours(0, 0, 0, 0);
     
@@ -310,18 +386,13 @@ function generarCalendarioInterno() {
             <span class="monto-dia" style="${estiloColorMonto}">$${(precioFinalDelDia / 1000).toFixed(0)}k</span>
         `;
         
-        // 🔒 EVALUACIÓN DE REGLAS Y BLOQUEOS:
-        // 1. ¿Es una fecha vieja? -> Bloqueo total por tiempo
         if (fechaActualObjeto < hoy) {
             div.classList.add('ocupado'); 
-            div.style.opacity = "0.35"; // Opacidad baja para denotar inactividad histórica
-            // Queda inerte, no se le da callback onclick
+            div.style.opacity = "0.35";
         } 
-        // 2. ¿Está bloqueada en tus reservas? -> Bloqueo por ocupación
         else if (prop.fechasOcupadas.includes(fechaTextoStr)) {
             div.classList.add('ocupado');
         } 
-        // 3. Es presente o futuro y está disponible -> Habilitado para clics
         else {
             div.classList.add('disponible');
             if (esFeriado) div.classList.add('dia-feriado');
@@ -407,6 +478,121 @@ function cerrarModal() {
     document.getElementById('modal-propiedad').style.setProperty('display', 'none', 'important'); 
 }
 
+// ============================================================================================
+// 🌐 INTERFAZ Y CONTROLADORES DE GOOGLE AUTH VIA INTERRUPTORES SIMULADOS
+// ============================================================================================
+
+async function iniciarSesionGoogle() {
+    try {
+        // Simulación controlada para desarrollo ágil de la interfaz:
+        usuarioActual = {
+            uid: "google_uid_fake_12345",
+            displayName: "Giuliano Test",
+            email: "giuliano.test@gmail.com",
+            photoURL: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80"
+        };
+        console.log("Sesión de Google simulada de forma correcta:", usuarioActual);
+        actualizarInterfazUsuario();
+        alert(`¡Bienvenido/a ${usuarioActual.displayName}!`);
+    } catch (error) {
+        console.error("Error crítico en OAuth de Google:", error);
+    }
+}
+
+async function cerrarSesionGoogle() {
+    try {
+        usuarioActual = null;
+        console.log("Sesión destruida localmente.");
+        actualizarInterfazUsuario();
+        alert("Sesión cerrada correctamente.");
+    } catch (error) {
+        console.error("Error al revocar sesión:", error);
+    }
+}
+
+function actualizarInterfazUsuario() {
+    const btnLogin = document.getElementById('btn-login-google');
+    const btnLogout = document.getElementById('btn-logout-google');
+    const avatarUsuario = document.getElementById('avatar-usuario');
+
+    if (usuarioActual) {
+        if (btnLogin) btnLogin.style.display = 'none';
+        if (btnLogout) btnLogout.style.display = 'block';
+        if (avatarUsuario) {
+            avatarUsuario.src = usuarioActual.photoURL;
+            avatarUsuario.style.display = 'inline-block';
+        }
+    } else {
+        if (btnLogin) btnLogin.style.display = 'block';
+        if (btnLogout) btnLogout.style.display = 'none';
+        if (avatarUsuario) avatarUsuario.style.display = 'none';
+    }
+}
+
+// ============================================================================================
+// 💾 GESTIÓN E INTERCEPTACIÓN DE DATOS CON ESTADO DE REVISIÓN
+// ============================================================================================
+
+function interceptarYGuardarReserva(nombrePropiedad) {
+    if (!usuarioActual) {
+        alert("⚠️ Debes iniciar sesión con tu cuenta de Google para solicitar una reserva.");
+        iniciarSesionGoogle();
+        return;
+    }
+
+    if (!fechaInicioSeleccionada || !fechaFinSeleccionada) {
+        alert("⚠️ Por favor, selecciona fechas de check-in y check-out válidas en el calendario.");
+        return;
+    }
+
+    const p = infoPropiedades[propiedadSeleccionadaId];
+    const pasajerosValor = document.getElementById('pasajeros-cantidad').value;
+    const pasajerosSeleccionados = pasajerosValor === 'todos' ? 2 : parseInt(pasajerosValor);
+    let precioBaseNoche = p.precios[pasajerosSeleccionados] || p.precios[p.capacidadMax] || p.precios[1];
+
+    let precioTotalEstadía = 0;
+    let cantidadNoches = 0;
+    let controlFecha = new Date(fechaInicioSeleccionada.getTime());
+
+    while (controlFecha < fechaFinSeleccionada) {
+        precioTotalEstadía += calcularPrecioDia(controlFecha, precioBaseNoche);
+        cantidadNoches++;
+        controlFecha.setDate(controlFecha.getDate() + 1);
+    }
+
+    // Creación estructurada del payload con el estado solicitado
+    const metadataSolicitud = {
+        idReserva: `resv_${Date.now()}`,
+        usuario: {
+            uid: usuarioActual.uid,
+            nombre: usuarioActual.displayName,
+            email: usuarioActual.email
+        },
+        propiedadId: propiedadSeleccionadaId,
+        nombrePropiedad: nombrePropiedad,
+        checkIn: fechaInicioSeleccionada.toISOString().split('T')[0],
+        checkOut: fechaFinSeleccionada.toISOString().split('T')[0],
+        noches: cantidadNoches,
+        montoTotal: precioTotalEstadía,
+        fechaSolicitud: new Date().toISOString(),
+        estadoRevision: 'pendiente_revision' // Estado de control maestro inicial
+    };
+
+    console.log("Payload guardado exitosamente en LocalStorage con estado de revisión:", metadataSolicitud);
+
+    // Persistencia física temporal en LocalStorage
+    let listadoHistórico = JSON.parse(localStorage.getItem('hostly_reservas')) || [];
+    listadoHistórico.push(metadataSolicitud);
+    localStorage.setItem('hostly_reservas', JSON.stringify(listadoHistórico));
+
+    // Ejecuta el flujo tradicional enviando la confirmación por mensajería
+    enviarReservaWhatsApp(nombrePropiedad);
+}
+
+// ============================================================================================
+// 💬 SALIDAS EXTERNAS DE COMUNICACIÓN
+// ============================================================================================
+
 function enviarReservaWhatsApp(nombre) {
     const paxCantidad = document.getElementById('pasajeros-cantidad').value;
     const textoPax = paxCantidad === 'todos' ? '2 personas' : (paxCantidad === '10' ? 'más de 6 personas' : `${paxCantidad} personas`);
@@ -446,4 +632,221 @@ function enviarReservaWhatsApp(nombre) {
 
 function solicitarServicioPropietario() {
     window.open(`https://wa.me/5493541523006?text=${encodeURIComponent('Hola, soy propietario y me interesa delegar la gestión de mi alquiler temporario con Hostly.')}`, '_blank');
+}
+
+// ============================================================================================
+// 🌐 INTERFAZ Y CONTROLADORES DE GOOGLE AUTH (Para pantalla independiente)
+// ============================================================================================
+
+// Variable global para guardar al usuario logueado
+let usuarioActual = null;
+
+async function iniciarSesionGoogle() {
+    try {
+        // Simulación controlada (Tus datos reales de prueba para desarrollo)
+        usuarioActual = {
+            uid: "google_uid_giuliano_21",
+            displayName: "Giuliano",
+            email: "giuliano.mecanica@gmail.com",
+            photoURL: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80"
+        };
+        
+        console.log("Sesión iniciada con éxito para: " + usuarioActual.displayName);
+        actualizarInterfazUsuario();
+        
+    } catch (error) {
+        console.error("Error en la autenticación de Google:", error);
+    }
+}
+
+async function cerrarSesionGoogle() {
+    try {
+        usuarioActual = null;
+        console.log("Sesión cerrada.");
+        actualizarInterfazUsuario();
+    } catch (error) {
+        console.error("Error al cerrar sesión:", error);
+    }
+}
+
+/**
+ * Controla qué pantalla se bloquea/muestra y llena los datos del menú de las 3 rayitas
+ */
+function actualizarInterfazUsuario() {
+    const vistaBloqueo = document.getElementById('pantalla-login-obligatorio');
+    const navbarPrincipal = document.getElementById('navbar-principal');
+    const avatarNavbar = document.getElementById('avatar-navbar');
+    
+    // Elementos del menú desplegable hamburguesa
+    const menuNombre = document.getElementById('menu-nombre-usuario');
+    const menuEmail = document.getElementById('menu-email-usuario');
+
+    if (usuarioActual) {
+        // 🔓 USUARIO LOGUEADO: Ocultamos pantalla verde y activamos la Navbar
+        if (vistaBloqueo) vistaBloqueo.style.display = 'none';
+        if (navbarPrincipal) navbarPrincipal.style.display = 'flex';
+        
+        // Cargamos tu info en la barra y en el menú flotante
+        if (avatarNavbar) avatarNavbar.src = usuarioActual.photoURL;
+        if (menuNombre) menuNombre.innerText = usuarioActual.displayName;
+        if (menuEmail) menuEmail.innerText = usuarioActual.email;
+        
+    } else {
+        // 🔒 USUARIO NO LOGUEADO: Volvemos a bloquear y ocultamos la barra
+        if (vistaBloqueo) vistaBloqueo.style.display = 'flex';
+        if (navbarPrincipal) navbarPrincipal.style.display = 'none';
+        
+        // Limpiamos los datos para que no queden guardados
+        if (avatarNavbar) avatarNavbar.src = "";
+    }
+}
+
+/**
+ * Abre y cierra el menú flotante al tocar las 3 rayitas
+ */
+function toggleMenuMenu() {
+    const menu = document.getElementById('menu-desplegable');
+    if (menu) {
+        menu.classList.toggle('mostrar');
+    }
+}
+
+/**
+ * Función por si tocan "Publicar mi propiedad"
+ */
+function solicitarServicioPropietario() {
+    alert("¡Hola Giuliano! Pronto vas a poder subir tus propiedades directamente desde este panel.");
+}
+
+// Cerrar el menú automáticamente si el usuario hace clic en cualquier otra parte de la pantalla
+window.addEventListener('click', (e) => {
+    const menu = document.getElementById('menu-desplegable');
+    const zonaUsuario = document.querySelector('.navbar-usuario-zona');
+    if (menu && menu.classList.contains('mostrar') && zonaUsuario && !zonaUsuario.contains(e.target)) {
+        menu.classList.remove('mostrar');
+    }
+});
+
+// ============================================================================================
+// 🌐 CONTROL DE INTERFAZ Y LOGIN (HOSTLY)
+// ============================================================================================
+
+// Creamos la variable para guardar los datos del usuario (arranca vacía porque nadie inició sesión)
+let usuarioActual = null;
+
+/**
+ * 1️⃣ Función que se ejecuta cuando el usuario hace clic en "Continuar con Google"
+ */
+async function iniciarSesionGoogle() {
+    try {
+        // Simulamos que Google nos devuelve tus datos reales para las pruebas
+        usuarioActual = {
+            uid: "google_uid_giuliano_21",
+            displayName: "Giuliano",
+            email: "giuliano.mecanica@gmail.com",
+            photoURL: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80" // Foto de prueba
+        };
+        
+        console.log("¡Sesión iniciada con éxito! Bienvenido, " + usuarioActual.displayName);
+        
+        // Al tener los datos, actualizamos la pantalla
+        actualizarInterfazUsuario();
+        
+    } catch (error) {
+        console.error("Error al conectar con Google:", error);
+    }
+}
+
+/**
+ * 2️⃣ Función para cerrar la sesión desde el menú de las 3 rayitas
+ */
+async function cerrarSesionGoogle() {
+    try {
+        usuarioActual = null;
+        console.log("Sesión cerrada correctamente.");
+        actualizarInterfazUsuario();
+    } catch (error) {
+        console.error("Error al cerrar sesión:", error);
+    }
+}
+
+/**
+ * 3️⃣ El "árbitro" que decide qué se muestra y qué se oculta en la pantalla
+ */
+function actualizarInterfazUsuario() {
+    const vistaBloqueo = document.getElementById('pantalla-login-obligatorio');
+    const navbarPrincipal = document.getElementById('navbar-principal');
+    const avatarNavbar = document.getElementById('avatar-navbar');
+    
+    // Campos de texto adentro de las 3 rayitas
+    const menuNombre = document.getElementById('menu-nombre-usuario');
+    const menuEmail = document.getElementById('menu-email-usuario');
+
+    if (usuarioActual) {
+        // 🔓 SI ESTÁ LOGUEADO: Ocultamos el bloqueo y mostramos la barra superior
+        if (vistaBloqueo) vistaBloqueo.style.display = 'none';
+        if (navbarPrincipal) navbarPrincipal.style.display = 'flex';
+        
+        // Le metemos tu foto, nombre y mail a la barra y al menú desplegable
+        if (avatarNavbar) avatarNavbar.src = usuarioActual.photoURL;
+        if (menuNombre) menuNombre.innerText = usuarioActual.displayName;
+        if (menuEmail) menuEmail.innerText = usuarioActual.email;
+        
+    } else {
+        // 🔒 SI NO ESTÁ LOGUEADO: Clava la pantalla de bloqueo y esconde la barra
+        if (vistaBloqueo) vistaBloqueo.style.display = 'flex';
+        if (navbarPrincipal) navbarPrincipal.style.display = 'none';
+        
+        // Limpiamos la imagen por seguridad
+        if (avatarNavbar) avatarNavbar.src = "";
+    }
+}
+
+/**
+ * 4️⃣ Abre y cierra el panel flotante cuando tocás las 3 rayitas
+ */
+function toggleMenuMenu() {
+    const menu = document.getElementById('menu-desplegable');
+    if (menu) {
+        menu.classList.toggle('mostrar');
+    }
+}
+
+/**
+ * 5️⃣ Cartelito provisional para la opción de publicar propiedad
+ */
+function solicitarServicioPropietario() {
+    alert("¡Hola Giuliano! Pronto vas a poder subir tus propiedades directamente desde acá.");
+}
+
+// 6️⃣ Si el menú está abierto y el usuario hace clic en cualquier otra parte, se cierra solo
+window.addEventListener('click', (e) => {
+    const menu = document.getElementById('menu-desplegable');
+    const zonaUsuario = document.querySelector('.navbar-usuario-zona');
+    if (menu && menu.classList.contains('mostrar') && zonaUsuario && !zonaUsuario.contains(e.target)) {
+        menu.classList.remove('mostrar');
+    }
+});
+
+// 7️⃣ ESTO ES CLAVE: Cuando la página se carga de cero, ejecuta el control para bloquear la pantalla
+document.addEventListener("DOMContentLoaded", () => {
+    actualizarInterfazUsuario();
+});
+
+/**
+ * Función provisional para el login tradicional (Email y Contraseña)
+ */
+function iniciarSesionTradicional() {
+    const email = document.getElementById('login-email').value;
+    
+    // Simulamos un ingreso exitoso con el mail que pusieron
+    usuarioActual = {
+        uid: "user_tradicional_123",
+        displayName: email.split('@')[0], // Usa la primera parte del mail como nombre
+        email: email,
+        photoURL: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80"
+    };
+    
+    console.log("Sesión iniciada vía formulario tradicional.");
+    actualizarInterfazUsuario();
 }
