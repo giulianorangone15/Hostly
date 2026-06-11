@@ -5,19 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hostly | Gestión Premium de Alquileres Temporarios</title>
     
-    <link rel="icon" type="image/png" href="logo Hostly\logo-hostly.png">
-    <link rel="apple-touch-icon" href="logo Hostly\logo-hostly.png">
+    <link rel="icon" type="image/png" href="logo Hostly/logo-hostly.png">
+    <link rel="apple-touch-icon" href="logo Hostly/logo-hostly.png">
     <meta name="apple-mobile-web-app-title" content="Hostly">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght=300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="estilos.css">
-    
 </head>
 <body>
+
 <div id="pantalla-login-obligatorio" class="login-split-container">
-    
     <div class="login-left-side">
         <div class="login-overlay-text">
             <h2>Disfrutá Carlos Paz</h2>
@@ -27,7 +26,6 @@
     
     <div class="login-right-side">
         <div class="login-form-wrapper">
-            
             <div class="hostly-brand-login">
                 <span class="hostly-brand-icon">🏨</span>
                 <span class="hostly-brand-name">Hostly</span>
@@ -36,28 +34,28 @@
             <h1 class="welcome-title">¡Bienvenido!</h1>
             <p class="welcome-subtitle">Ingresá tus datos para acceder al catálogo.</p>
             
-            <form id="form-login-tradicional" onsubmit="event.preventDefault(); iniciarSesionTradicional();">
+            <form id="form-login-tradicional" onsubmit="event.preventDefault();">
                 <div class="input-group-hostly">
                     <label for="login-email">Correo electrónico</label>
-                    <input type="email" id="login-email" placeholder="ejemplo@correo.com" required>
+                    <input type="email" id="login-email" placeholder="ejemplo@correo.com" required autocomplete="email">
                 </div>
                 
                 <div class="input-group-hostly">
                     <div class="label-row-hostly">
                         <label for="login-password">Contraseña</label>
-                        <a href="#" onclick="alert('Próximamente: Recuperación de contraseña')" class="forgot-password-link">¿Olvidaste tu contraseña?</a>
+                        <a href="#" id="link-olvide-password" class="forgot-password-link">¿Olvidaste tu contraseña?</a>
                     </div>
-                    <input type="password" id="login-password" placeholder="Ingresá tu contraseña" required>
+                    <input type="password" id="login-password" placeholder="Ingresá tu contraseña" required autocomplete="current-password">
                 </div>
                 
-                <button type="submit" class="btn-primary-hostly">Iniciar Sesión</button>
+                <button type="submit" class="btn-primary-hostly" id="btn-login-submit">Iniciar Sesión</button>
             </form>
             
             <div class="login-separator">
                 <span>o continuar con</span>
             </div>
             
-            <button id="btn-login-principal" class="btn-google-split" onclick="iniciarSesionGoogle()">
+            <button id="btn-login-google-principal" class="btn-google-split">
                 <div class="google-svg-box">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="22px" height="22px">
                         <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
@@ -70,279 +68,215 @@
             </button>
             
             <div class="login-footer-text">
-                <p>¿No tenés cuenta? <a href="#" onclick="alert('Próximamente: Registro de nuevos usuarios')">Crear usuario nuevo</a></p>
+                <p>¿No tenés cuenta? <a href="#" id="link-crear-cuenta">Crear usuario nuevo</a></p>
             </div>
-            
         </div>
     </div>
 </div>
 
-    <nav>
-        <h1>Hostly</h1>
-        <div class="nav-container-right">
-            <div class="nav-links">
-                <a href="#catalogo">Propiedades</a>
-                <a class="btn-propietario" onclick="abrirModalPublicar()">Para Propietarios</a>
-            </div>
+<nav>
+    <h1 class="logo-brand">Hostly</h1>
+    <div class="nav-container-right">
+        <div class="nav-links">
+            <a href="#catalogo">Propiedades</a>
+            <a class="btn-propietario" id="nav-btn-propietarios">Para Propietarios</a>
+        </div>
+        
+        <div id="auth-global-container">
+            <button type="button" class="btn-google-auth" id="btn-login-nav">
+                <svg width="16" height="16" viewBox="0 0 18 18" style="display:inline-block; vertical-align:middle; margin-right:6px;"><path fill="#4285F4" d="M17.64 9.2c0-.63-.06-1.25-.16-1.84H9v3.47h4.84c-.21 1.12-.84 2.07-1.8 2.71v2.24h2.92c1.71-1.57 2.68-3.88 2.68-6.58z"/><path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.2l-2.92-2.24c-.8.54-1.84.87-3.04.87-2.34 0-4.33-1.57-5.03-3.68H.92v2.3A8.99 8.99 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.97 10.75c-.18-.54-.28-1.12-.28-1.75s.1-1.21.28-1.75V4.95H.92A8.99 8.99 0 0 0 0 9c0 1.48.36 2.89.92 4.15l3.05-2.4z"/><path fill="#EA4335" d="M9 3.58c1.32 0 2.5.45 3.44 1.35L15 2.3A8.99 8.99 0 0 0 .92 4.95l3.05 2.4C4.67 5.15 6.66 3.58 9 3.58z"/></svg>
+                Ingresar
+            </button>
             
-            <div id="auth-google-container">
-                <button type="button" class="btn-google-auth" id="btn-login-google" onclick="iniciarSesionGoogle()">
-                    <svg width="16" height="16" viewBox="0 0 18 18" style="display:inline-block; vertical-align:middle; margin-right:4px;"><path fill="#4285F4" d="M17.64 9.2c0-.63-.06-1.25-.16-1.84H9v3.47h4.84c-.21 1.12-.84 2.07-1.8 2.71v2.24h2.92c1.71-1.57 2.68-3.88 2.68-6.58z"/><path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.2l-2.92-2.24c-.8.54-1.84.87-3.04.87-2.34 0-4.33-1.57-5.03-3.68H.92v2.3A8.99 8.99 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.97 10.75c-.18-.54-.28-1.12-.28-1.75s.1-1.21.28-1.75V4.95H.92A8.99 8.99 0 0 0 0 9c0 1.48.36 2.89.92 4.15l3.05-2.4z"/><path fill="#EA4335" d="M9 3.58c1.32 0 2.5.45 3.44 1.35L15 2.3A8.99 8.99 0 0 0 .92 4.95l3.05 2.4C4.67 5.15 6.66 3.58 9 3.58z"/></svg>
-                    Ingresar
-                </button>
-                <div class="user-logged-info" id="user-logged-info">
-                    <img src="" alt="Avatar" class="user-avatar" id="user-photo">
-                    <span id="user-name"></span>
-                    <button class="btn-logout" onclick="cerrarSesionGoogle()">Salir</button>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <header class="hero-seccion">
-        <div class="hero-contenido">
-            <h2>Experiencias <strong>Exclusivas</strong></h2>
-            <p>Alojamientos premium en Villa Carlos Paz gestionados con excelencia</p>
-        </div>
-
-        <div class="buscador-caja">
-            <div class="buscador-formulario">
-                <div class="input-grupo">
-                    <label>Tipo de Alojamiento</label>
-                    <div class="select-wrapper">
-                        <select id="filtro-tipo">
-                            <option value="todos">Todos los tipos</option>
-                            <option value="habitacion">Habitaciones</option>
-                            <option value="departamento">Departamentos</option>
-                            <option value="casa">Casas</option>
-                            <option value="cabaña">Cabañas</option>
-                        </select>
+            <div class="user-profile-menu" id="user-profile-menu" style="display: none;">
+                <button class="menu-trigger" id="menu-trigger-btn">
+                    <div class="hamburger-icon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
                     </div>
-                </div>
-                <div class="input-grupo">
-                    <label>Huéspedes</label>
-                    <div class="select-wrapper">
-                        <select id="pasajeros-cantidad">
-                            <option value="todos">Cualquier capacidad</option>
-                            <option value="1">1 Persona</option>
-                            <option value="2" selected>2 Personas</option>
-                            <option value="3">3 Personas</option>
-                            <option value="4">4 Personas</option>
-                            <option value="5">5 Personas</option>
-                            <option value="6">6 Personas</option>
-                            <option value="10">Más Personas</option>
-                        </select>
-                    </div>
-                </div>
-                <button type="button" class="boton-buscar" onclick="filtrarAlojamientos()">
-                    <span style="display: inline-block; width: 14px; height: 14px; border: 2px solid #ffffff; border-radius: 50%; position: absolute; top: 16px; left: 16px;"></span>
-                    <span style="display: inline-block; width: 2px; height: 8px; background-color: #ffffff; position: absolute; top: 26px; left: 26px; transform: rotate(-45deg);"></span>
+                    <img src="https://via.placeholder.com/32" alt="Avatar" class="user-avatar" id="user-photo">
                 </button>
-            </div>
-        </div>
-    </header> 
-
-    <main class="contenedor-fluido" id="seccion-contenido">
-        <section id="catalogo" class="seccion-catalogo">
-            <div class="catalogo-header-caja">
-                <h3 class="titulo-seccion">Colección <strong>De Propiedades</strong></h3>
-                <button type="button" class="btn-limpiar-filtros" onclick="limpiarFiltros()">
-                    <span style="font-size: 1.1rem; line-height: 1;">↺</span> Limpiar Filtros
-                </button>
-            </div>
-            <div class="grilla-alojamientos" id="lista-propiedades">
-                <div id="sin-resultados">No hay alojamientos disponibles para los filtros seleccionados.</div>
-            </div>
-        </section>
-
-        <section id="propietarios" class="seccion-propietarios">
-            <div class="propietarios-contenido">
-                <h3>¿Tenés una propiedad? <strong>Compramos tu estrés, te devolvemos tu tiempo.</strong></h3>
-                <p>Nos encargamos del 100% de la gestión operativa de tu alquiler temporario: marketing digital, optimización de tarifas, auditoría estricta de limpieza hotelera, check-in/out y cobros. Recibí tu rentabilidad de forma inmediata sin moverte de tu casa.</p>
-                <button type="button" class="btn-contacto-propietario" onclick="abrirModalPublicar()">Quiero Más Información</button>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <p>Hostly Management Premium © 2026 — Villa Carlos Paz, Córdoba</p>
-    </footer>
-
-    <div id="modal-publicar-propiedad" style="display: none !important; position: fixed !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; z-index: 99999 !important; overflow-y: auto !important;">
-        <div onclick="cerrarModalPublicar()" style="position: fixed !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; background-color: #000000 !important; opacity: 0.85 !important; z-index: 100000 !important;"></div>
-        <div style="position: relative !important; background-color: #ffffff !important; background: #ffffff !important; opacity: 1 !important; max-width: 600px; margin: 40px auto !important; border-radius: 12px; overflow: hidden; box-shadow: 0 25px 60px rgba(0,0,0,0.6); display: flex; flex-direction: column; z-index: 100001 !important;">
-            <span onclick="cerrarModalPublicar()" style="position: absolute; top: 15px; right: 20px; font-size: 2rem; color: #1a1a1a !important; cursor: pointer; z-index: 1010; font-weight: 300;">×</span>
-            
-            <div style="padding: 40px 30px; background-color: #ffffff !important;">
-                <h3 style="text-transform: uppercase; letter-spacing: 1px; font-size: 1.4rem; color: #1a1a1a; margin-bottom: 5px; font-weight: 700;">Publicá tu Propiedad</h3>
-                <p style="font-size: 0.9rem; color: #777777; margin-bottom: 25px;">Completá los datos. Tu publicación se enviará al administrador y quedará en estado <strong>"En revisión"</strong> hasta ser autorizada.</p>
                 
-                <form id="form-nueva-propiedad" onsubmit="enviarPropiedadARevision(event)">
-                    <div class="form-grupo">
-                        <label>Título de la Propiedad</label>
-                        <input type="text" id="prop-titulo" placeholder="Ej: Casa Minimalista con Pileta" required>
+                <div class="dropdown-menu-box" id="dropdown-menu-box">
+                    <div class="dropdown-header">
+                        <span id="user-name-display">Usuario Premium</span>
                     </div>
-
-                    <div class="form-grupo">
-                        <label>Tipo de Alojamiento</label>
-                        <select id="prop-tipo" required>
-                            <option value="departamento">Departamento</option>
-                            <option value="casa">Casa</option>
-                            <option value="habitacion">Habitación</option>
-                            <option value="cabaña">Cabaña</option>
-                        </select>
-                    </div>
-
-                    <div class="form-grupo">
-                        <label>Capacidad Máxima (Huéspedes)</label>
-                        <input type="number" id="prop-capacidad" min="1" max="20" value="2" required>
-                    </div>
-
-                    <div class="form-grupo">
-                        <label>Precio por Noche (ARS)</label>
-                        <input type="number" id="prop-precio" placeholder="Ej: 45000" required>
-                    </div>
-
-                    <div class="form-grupo">
-                        <label>Descripción General</label>
-                        <textarea id="prop-descripcion" rows="4" placeholder="Contanos sobre las comodidades, ambientes y ubicación..." required></textarea>
-                    </div>
-
-                    <div class="form-grupo">
-                        <label>Foto de la Propiedad</label>
-                        <input type="file" id="prop-foto" accept="image/*" required onchange="procesarYComprimirImagen(event)">
-                        <div id="prop-peso-info" class="peso-info"></div>
-                        <div style="margin-top: 15px; text-align: center;">
-                            <img id="prop-preview-img" style="max-width: 100%; max-height: 180px; display: none; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" alt="Vista previa de propiedad">
-                        </div>
-                    </div>
-
-                    <button type="submit" style="width: 100%; background-color: #1a1a1a; color: #ffffff; border: none; padding: 15px; font-size: 1rem; font-weight: 700; border-radius: 30px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; font-family: 'Urbanist', sans-serif; transition: all 0.3s; margin-top: 10px;" onmouseover="this.style.backgroundColor='#007a78'" onmouseout="this.style.backgroundColor='#1a1a1a'">Enviar a Revisión</button>
-                </form>
+                    <hr class="dropdown-divider">
+                    <a href="#" class="dropdown-item" id="item-menu-propiedad">🏡 Mi Propiedad</a>
+                    <a href="#" class="dropdown-item" id="item-menu-contacto">📞 Contacto / Soporte</a>
+                    <hr class="dropdown-divider">
+                    <a href="#" class="dropdown-item item-danger" id="item-menu-eliminar">⚠️ Eliminar Cuenta</a>
+                    <a href="#" class="dropdown-item item-logout" id="item-menu-logout">🚪 Cerrar Sesión</a>
+                </div>
             </div>
         </div>
     </div>
+</nav>
 
-    <div id="modal-propiedad" style="display: none !important; position: fixed !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; z-index: 99999 !important; overflow-y: auto !important;">
-        <div onclick="cerrarModal()" style="position: fixed !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; background-color: #000000 !important; opacity: 0.85 !important; z-index: 100000 !important;"></div>
-        <div style="position: relative !important; background-color: #ffffff !important; background: #ffffff !important; opacity: 1 !important; max-width: 800px; margin: 40px auto !important; border-radius: 12px; overflow: hidden; box-shadow: 0 25px 60px rgba(0,0,0,0.6); display: flex; flex-direction: column; z-index: 100001 !important;">
-            <span onclick="cerrarModal()" style="position: absolute; top: 20px; right: 25px; font-size: 2.5rem; color: #ffffff !important; cursor: pointer; z-index: 1010; text-shadow: 0 2px 8px rgba(0,0,0,0.8); font-weight: 300;">×</span>
-            <div style="width: 100%; height: 450px; position: relative; overflow: hidden; background-color: #1a1a1a;">
-                <div id="modal-slider-imagenes" style="width: 100%; height: 100%; background-size: cover; background-position: center; transition: background-image 0.4s ease;"></div>
-                <button onclick="cambiarFoto(-1)" style="position: absolute; top: 50%; left: 20px; transform: translateY(-50%); background: rgba(0,0,0,0.6); color: #ffffff; border: none; width: 45px; height: 45px; border-radius: 50%; font-size: 1.5rem; cursor: pointer; z-index: 1005; transition: background 0.3s; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.background='rgba(0,0,0,0.9)'" onmouseout="this.style.background='rgba(0,0,0,0.6)'">❮</button>
-                <button onclick="cambiarFoto(1)" style="position: absolute; top: 50%; right: 20px; transform: translateY(-50%); background: rgba(0,0,0,0.6); color: #ffffff; border: none; width: 45px; height: 45px; border-radius: 50%; font-size: 1.5rem; cursor: pointer; z-index: 1005; transition: background 0.3s; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.background='rgba(0,0,0,0.9)'" onmouseout="this.style.background='rgba(0,0,0,0.6)'">❯</button>
-                <div style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 40px 30px 30px 30px; background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0)) !important; color: #ffffff !important; z-index: 1004; pointer-events: none;">
-                    <h2 id="modal-titulo" style="font-size: 2.2rem; font-weight: 700; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px; text-shadow: 0 2px 4px rgba(0,0,0,0.4); color: #ffffff !important;"></h2>
-                    <p id="modal-ubicacion" style="font-size: 1rem; opacity: 0.95; font-weight: 300; text-shadow: 0 1px 3px rgba(0,0,0,0.4); color: #ffffff !important;"></p>
+<header class="hero-seccion">
+    <div class="hero-contenido">
+        <h2>Experiencias <strong>Exclusivas</strong></h2>
+        <p>Alojamientos premium en Villa Carlos Paz gestionados con excelencia</p>
+    </div>
+
+    <div class="buscador-caja">
+        <div class="buscador-formulario">
+            <div class="input-grupo">
+                <label for="filtro-tipo">Tipo de Alojamiento</label>
+                <div class="select-wrapper">
+                    <select id="filtro-tipo">
+                        <option value="todos">Todos los tipos</option>
+                        <option value="habitacion">Habitaciones</option>
+                        <option value="departamento">Departamentos</option>
+                        <option value="casa">Casas</option>
+                        <option value="cabaña">Cabañas</option>
+                    </select>
                 </div>
             </div>
-            <div style="padding: 40px 30px; background-color: #ffffff !important; background: #ffffff !important; display: grid; grid-template-columns: 1fr; gap: 30px;">
+            <div class="input-grupo">
+                <label for="pasajeros-cantidad">Huéspedes</label>
+                <div class="select-wrapper">
+                    <select id="pasajeros-cantidad">
+                        <option value="todos">Cualquier capacidad</option>
+                        <option value="1">1 Persona</option>
+                        <option value="2" selected>2 Personas</option>
+                        <option value="3">3 Personas</option>
+                        <option value="4">4 Personas</option>
+                        <option value="5">5 Personas</option>
+                        <option value="6">6 Personas</option>
+                        <option value="10">Más Personas</option>
+                    </select>
+                </div>
+            </div>
+            <button type="button" class="boton-buscar" id="btn-ejecutar-busqueda" aria-label="Buscar">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </button>
+        </div>
+    </div>
+</header> 
+
+<main class="contenedor-fluido" id="seccion-contenido">
+    <section id="catalogo" class="seccion-catalogo">
+        <div class="catalogo-header-caja">
+            <h3 class="titulo-seccion">Colección <strong>De Propiedades</strong></h3>
+            <button type="button" class="btn-limpiar-filtros" id="btn-limpiar-filtros">
+                <span style="font-size: 1.1rem; line-height: 1;">↺</span> Limpiar Filtros
+            </button>
+        </div>
+        <div class="grilla-alojamientos" id="lista-propiedades">
+            <div id="sin-resultados">No hay alojamientos disponibles para los filtros seleccionados.</div>
+        </div>
+    </section>
+
+    <section id="propietarios" class="seccion-propietarios">
+        <div class="propietarios-contenido">
+            <h3>¿Tenés una propiedad? <strong>Compramos tu estrés, te devolvemos tu tiempo.</strong></h3>
+            <p>Nos encargamos del 100% de la gestión operativa de tu alquiler temporario: marketing digital, optimización de tarifas, auditoría estricta de limpieza hotelera, check-in/out y cobros. Recibí tu rentabilidad de forma inmediata sin moverte de tu casa.</p>
+            <button type="button" class="btn-contacto-propietario" id="btn-propietarios-informacion">Quiero Más Información</button>
+        </div>
+    </section>
+</main>
+
+<div id="modal-propiedad" style="display: none !important; position: fixed !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; z-index: 99999 !important; overflow-y: auto !important;">
+    <div id="modal-backdrop-cerrar" style="position: fixed !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; background-color: #000000 !important; opacity: 0.85 !important; z-index: 100000 !important;"></div>
+    <div style="position: relative !important; background-color: #ffffff !important; background: #ffffff !important; opacity: 1 !important; max-width: 800px; margin: 40px auto !important; border-radius: 12px; overflow: hidden; box-shadow: 0 25px 60px rgba(0,0,0,0.6); display: flex; flex-direction: column; z-index: 100001 !important;">
+        <span id="modal-btn-x-cerrar" style="position: absolute; top: 20px; right: 25px; font-size: 2.5rem; color: #ffffff !important; cursor: pointer; z-index: 1010; text-shadow: 0 2px 8px rgba(0,0,0,0.8); font-weight: 300;">×</span>
+        <div style="width: 100%; height: 450px; position: relative; overflow: hidden; background-color: #1a1a1a;">
+            <div id="modal-slider-imagenes" style="width: 100%; height: 100%; background-size: cover; background-position: center; transition: background-image 0.4s ease;"></div>
+            <button id="modal-btn-prev" style="position: absolute; top: 50%; left: 20px; transform: translateY(-50%); background: rgba(0,0,0,0.6); color: #ffffff; border: none; width: 45px; height: 45px; border-radius: 50%; font-size: 1.5rem; cursor: pointer; z-index: 1005; transition: background 0.3s; display: flex; align-items: center; justify-content: center;">❮</button>
+            <button id="modal-btn-next" style="position: absolute; top: 50%; right: 20px; transform: translateY(-50%); background: rgba(0,0,0,0.6); color: #ffffff; border: none; width: 45px; height: 45px; border-radius: 50%; font-size: 1.5rem; cursor: pointer; z-index: 1005; transition: background 0.3s; display: flex; align-items: center; justify-content: center;">❯</button>
+            <div style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 40px 30px 30px 30px; background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0)) !important; color: #ffffff !important; z-index: 1004; pointer-events: none;">
+                <h2 id="modal-titulo" style="font-size: 2.2rem; font-weight: 700; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px; text-shadow: 0 2px 4px rgba(0,0,0,0.4); color: #ffffff !important;"></h2>
+                <p id="modal-ubicacion" style="font-size: 1rem; opacity: 0.95; font-weight: 300; text-shadow: 0 1px 3px rgba(0,0,0,0.4); color: #ffffff !important;">Ubicación</p>
+            </div>
+        </div>
+        <div style="padding: 40px 30px; background-color: #ffffff !important; background: #ffffff !important; display: grid; grid-template-columns: 1fr; gap: 30px;">
+            <div>
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 25px; background-color: #fafafa; padding: 15px 20px; border-radius: 8px; border: 1px solid #eeeeee;">
+                    <span style="font-size: 0.95rem; font-weight: 600; color: #1a1a1a;">📍 Ubicación Disponible</span>
+                    <a id="modal-link-maps" href="#" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; color: #007a78; text-decoration: none; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; border-bottom: 2px solid #007a78;">Abrir en Google Maps</a>
+                </div>
+                <h4 style="text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; color: #888888; margin-bottom: 15px; border-bottom: 1px solid #eeeeee; padding-bottom: 5px;">Sobre esta propiedad</h4>
+                <p id="modal-descripcion" style="font-size: 1.05rem; color: #1a1a1a !important; line-height: 1.8; font-weight: 400; margin-bottom: 25px;"></p>
+                
+                <h4 style="text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; color: #888888; margin-bottom: 15px; border-bottom: 1px solid #eeeeee; padding-bottom: 5px;">Servicios Incluidos</h4>
+                <div id="modal-servicios" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 30px;"></div>
+                
+                <h4 style="text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; color: #888888; margin-bottom: 15px; border-bottom: 1px solid #eeeeee; padding-bottom: 5px;">Disponibilidad de Ocupación</h4>
+                <div class="calendario-contenedor">
+                    <div class="calendario-header">
+                        <button type="button" class="calendario-mes-btn" id="btn-cal-prev">❮</button>
+                        <span id="calendario-mes-año"></span>
+                        <button type="button" class="calendario-mes-btn" id="btn-cal-next">❯</button>
+                    </div>
+                    <div class="calendario-grilla calendario-dias-semana">
+                        <div>Do</div><div>Lu</div><div>Ma</div><div>Mi</div><div>Ju</div><div>Vi</div><div>Sá</div>
+                    </div>
+                    <div class="calendario-grilla" id="calendario-dias-caja"></div>
+                </div>
+            </div>
+            <div style="background-color: #fafafa !important; padding: 25px; border-radius: 12px; border: 1px solid #eeeeee; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
                 <div>
-                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 25px; background-color: #fafafa; padding: 15px 20px; border-radius: 8px; border: 1px solid #eeeeee;">
-                        <span style="font-size: 0.95rem; font-weight: 600; color: #1a1a1a;">📍 Ubicación Disponible</span>
-                        <a id="modal-link-maps" href="#" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; color: #007a78; text-decoration: none; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; border-bottom: 2px solid #007a78;">Abrir en Google Maps</a>
-                    </div>
-                    <h4 style="text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; color: #888888; margin-bottom: 15px; border-bottom: 1px solid #eeeeee; padding-bottom: 5px;">Sobre esta propiedad</h4>
-                    <p id="modal-descripcion" style="font-size: 1.05rem; color: #1a1a1a !important; line-height: 1.8; font-weight: 400; margin-bottom: 25px;"></p>
-                    
-                    <h4 style="text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; color: #888888; margin-bottom: 15px; border-bottom: 1px solid #eeeeee; padding-bottom: 5px;">Servicios Incluidos</h4>
-                    <div id="modal-servicios" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 30px;"></div>
-                    
-                    <h4 style="text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; color: #888888; margin-bottom: 15px; border-bottom: 1px solid #eeeeee; padding-bottom: 5px;">Disponibilidad de Ocupación</h4>
-                    <div class="calendario-contenedor">
-                        <div class="calendario-header">
-                            <button type="button" class="calendario-mes-btn" onclick="cambiarMesCalendario(-1)">❮</button>
-                            <span id="calendario-mes-año"></span>
-                            <button type="button" class="calendario-mes-btn" onclick="cambiarMesCalendario(1)">❯</button>
-                        </div>
-                        <div class="calendario-grilla calendario-dias-semana">
-                            <div>Do</div><div>Lu</div><div>Ma</div><div>Mi</div><div>Ju</div><div>Vi</div><div>Sá</div>
-                        </div>
-                        <div class="calendario-grilla" id="calendario-dias-caja"></div>
-                    </div>
+                    <span id="modal-precio-leyenda" style="font-size: 0.75rem; color: #888888; text-transform: uppercase; letter-spacing: 1px;">Precio Base</span>
+                    <div id="modal-precio-monto" style="font-size: 1.8rem; font-weight: 700; color: #1a1a1a !important; margin-top: 2px;"></div>
                 </div>
-                <div style="background-color: #fafafa !important; padding: 25px; border-radius: 12px; border: 1px solid #eeeeee; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
-                    <div>
-                        <span id="modal-precio-leyenda" style="font-size: 0.75rem; color: #888888; text-transform: uppercase; letter-spacing: 1px;">Precio Base</span>
-                        <div id="modal-precio-monto" style="font-size: 1.8rem; font-weight: 700; color: #1a1a1a !important; margin-top: 2px;"></div>
-                    </div>
-                    <button id="modal-btn-reservar" style="background-color: #1a1a1a; color: #ffffff; border: none; padding: 15px 35px; font-size: 1rem; font-weight: 700; border-radius: 30px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; font-family: 'Urbanist', sans-serif; transition: all 0.3s;" onmouseover="this.style.backgroundColor='#007a78'; this.style.transform='scale(1.03)'" onmouseout="this.style.backgroundColor='#1a1a1a'; this.style.transform='scale(1)'">Consultar Por WhatsApp</button>
-                </div>
+                <button id="modal-btn-reservar" style="background-color: #1a1a1a; color: #ffffff; border: none; padding: 15px 35px; font-size: 1rem; font-weight: 700; border-radius: 30px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; font-family: 'Urbanist', sans-serif; transition: all 0.3s;">Consultar Por WhatsApp</button>
             </div>
         </div>
     </div>
+</div>
 
-    <script>
-        let fotoComprimidaBlob = null; // Almacén global para el archivo liviano final
-
-        // Controladores visuales del nuevo modal de propiedades
-        function abrirModalPublicar() {
-            document.getElementById('modal-publicar-propiedad').style.setProperty('display', 'flex', 'important');
-        }
-        function cerrarModalPublicar() {
-            document.getElementById('modal-publicar-propiedad').style.setProperty('display', 'none', 'important');
-            document.getElementById('form-nueva-propiedad').reset();
-            document.getElementById('prop-preview-img').style.display = 'none';
-            document.getElementById('prop-peso-info').style.display = 'none';
-            fotoComprimidaBlob = null;
-        }
-
-        // 📷 LÓGICA DE COMPRESIÓN DE FOTOS POR CANVAS EN TIEMPO REAL
-        function procesarYComprimirImagen(event) {
-            const archivo = event.target.files[0];
-            if (!archivo) return;
-
-            const infoPeso = document.getElementById('prop-peso-info');
-            const vistaPrevia = document.getElementById('prop-preview-img');
+<div id="modal-publicar-propiedad" class="modal-hostly-overlay" style="display: none;">
+    <div class="modal-hostly-content">
+        <div class="modal-hostly-header">
+            <h2>Publicá tu alojamiento en Hostly</h2>
+            <button class="btn-cerrar-modal" id="btn-cerrar-publicar">✕</button>
+        </div>
+        
+        <form id="form-publicar-propiedad" onsubmit="event.preventDefault();">
+            <div class="input-group-hostly">
+                <label for="pub-titulo">Nombre de la propiedad / Complejo</label>
+                <input type="text" id="pub-titulo" placeholder="Ej: Cabañas El Descanso" required>
+            </div>
             
-            const lector = new FileReader();
-            lector.readAsDataURL(archivo);
-            lector.onload = function(e) {
-                const img = new Image();
-                img.src = e.target.result;
-                img.onload = function() {
-                    // Escalar proporcionalmente a un máximo de 1200px de ancho (ideal para web premium)
-                    const maxAncho = 1200;
-                    let ancho = img.width;
-                    let alto = img.height;
+            <div class="pub-row-doble">
+                <div class="input-group-hostly">
+                    <label for="pub-precio">Precio por noche ($ ARS)</label>
+                    <input type="number" id="pub-precio" placeholder="Ej: 45000" required>
+                </div>
+                <div class="input-group-hostly">
+                    <label for="pub-capacidad">Capacidad máxima</label>
+                    <input type="number" id="pub-capacidad" placeholder="Ej: 4" required>
+                </div>
+            </div>
+            
+            <div class="input-group-hostly">
+                <label for="pub-ubicacion">Ubicación exacta (Barrio / Zona)</label>
+                <input type="text" id="pub-ubicacion" placeholder="Ej: Villa Dominguez, Carlos Paz" required>
+            </div>
 
-                    if (ancho > maxAncho) {
-                        alto = Math.round((alto * maxAncho) / ancho);
-                        ancho = maxAncho;
-                    }
+            <div class="input-group-hostly">
+                <label for="pub-detalles">Servicios incluidos (Separados por coma)</label>
+                <input type="text" id="pub-detalles" placeholder="Ej: Pileta, Wifi, Cochera, Asador">
+            </div>
 
-                    const canvas = document.createElement('canvas');
-                    canvas.width = ancho;
-                    canvas.height = alto;
-                    const ctx = canvas.getContext('2d');
-                    ctx.drawImage(img, 0, 0, ancho, alto);
+            <div class="aviso-monetizacion-hostly">
+                <p>⚠️ <strong>Nota importante:</strong> Al finalizar, se generará la ficha técnica y serás redirigido al WhatsApp del administrador para realizar el pago de la activación y dar de alta el anuncio en la cartelera.</p>
+            </div>
+            
+            <button type="submit" class="btn-primary-hostly" id="btn-submit-publicar">Enviar a Revisión y Activar</button>
+        </form>
+    </div>
+</div>
 
-                    // Reducción a JPEG de alta fidelidad pero peso pluma (Calidad 75%)
-                    canvas.toBlob(function(blob) {
-                        fotoComprimidaBlob = blob;
-                        vistaPrevia.src = URL.createObjectURL(blob);
-                        vistaPrevia.style.display = 'block';
-                        
-                        infoPeso.innerText = `¡Foto optimizada! Peso reducido a: ${(blob.size / 1024).toFixed(0)} KB`;
-                        infoPeso.style.display = 'block';
-                    }, 'image/jpeg', 0.75);
-                };
-            };
-        }
+<footer>
+    <p>Hostly Management Premium © 2026 — Villa Carlos Paz, Córdoba</p>
+</footer>
 
-        // Simulación de envío hasta conectar tu Firebase/JS
-        function enviarPropiedadARevision(e) {
-            e.preventDefault();
-            if(!fotoComprimidaBlob){
-                alert("Por favor, esperá a que cargue y se optimice la imagen.");
-                return;
-            }
-            // Aquí actuará la lógica de roles que armaremos en tu JS
-            alert("¡Éxito! Tu propiedad fue registrada. Se encuentra en estado 'En revisión' hasta que el Administrador autorice su publicación.");
-            cerrarModalPublicar();
-        }
-    </script>
-
-    <script src="datos.js"></script>
+<script src="datos.js"></script>
 </body>
 </html>
